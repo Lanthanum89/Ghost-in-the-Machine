@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { formatClock } from '../core/clock';
 import { NOTABLE_SCORE, type ScoredEvent } from '../core/timeline';
-import { LEAD_MS } from './plan';
 
 interface Props {
   events: ScoredEvent[];
@@ -16,7 +15,7 @@ interface Props {
 export function Log({ events, selected, time, onlySelected, onToggleOnlySelected, onTime }: Props) {
   const shown = onlySelected ? events.filter((e) => selected.has(e)) : events;
   const region = useRef<HTMLDivElement>(null);
-  const nowRow = [...shown].reverse().find((e) => e.time <= time + LEAD_MS);
+  const nowRow = [...shown].reverse().find((e) => e.time <= time);
 
   // Keep the row for the chart's current moment in view, without moving the page.
   useEffect(() => {

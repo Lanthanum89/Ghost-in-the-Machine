@@ -17,8 +17,6 @@ export const VIEW = { w: 730, h: 440 };
 /** Room for the front door's label to the left of the house, in SVG units. */
 export const HOUSE_OFFSET_X = 70;
 
-/** Times are whole minutes, so show the house as it stood halfway through the minute. */
-export const LEAD_MS = 30_000;
 
 export const ROOMS: Record<string, Room> = {
   living_room: { x: 20, y: 20, w: 270, h: 190, label: 'living room' },

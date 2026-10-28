@@ -34,3 +34,18 @@ export function formatClock(ms: number): string {
   const d = new Date(ms);
   return `${String(d.getUTCHours()).padStart(2, '0')}:${String(d.getUTCMinutes()).padStart(2, '0')}`;
 }
+
+const MINUTE = 60_000;
+
+/**
+ * A time written as hh:mm names a whole minute, but the house changes in seconds. Pick the instant inside
+ * that minute to show: the latest of the highest-scoring events in it, so the state includes what the
+ * story is pointing at. With no event in the minute, nothing changes inside it, so its start will do.
+ */
+export function resolveMinute(minuteMs: number, events: Array<{ time: number; score: number }>): number {
+  const start = Math.floor(minuteMs / MINUTE) * MINUTE;
+  const inside = events.filter((e) => e.time >= start && e.time < start + MINUTE);
+  if (inside.length === 0) return start;
+  const best = Math.max(...inside.map((e) => e.score));
+  return Math.max(...inside.filter((e) => e.score === best).map((e) => e.time));
+}

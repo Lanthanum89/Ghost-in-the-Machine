@@ -1,6 +1,6 @@
 import { formatClock } from '../core/clock';
 import type { HouseState } from '../core/state';
-import { ANCHORS, HOUSE_OFFSET_X, LEAD_MS, ROOMS, VIEW, toPath, type Leg, type Mark } from './plan';
+import { ANCHORS, HOUSE_OFFSET_X, ROOMS, VIEW, toPath, type Leg, type Mark } from './plan';
 
 interface Props {
   state: HouseState;
@@ -27,14 +27,18 @@ function summarise(state: HouseState, time: number): string {
   bits.push(lit.length ? `Lights on: ${lit.join(', ')}.` : 'No lights on.');
   const open = Object.entries(state.doors).filter(([, o]) => o).map(([d]) => d.replace('_', ' '));
   if (open.length) bits.push(`Open: ${open.join(', ')}.`);
+  // The same window as the rings drawn on the plan.
+  const moving = Object.entries(state.lastMotion)
+    .filter(([area, t]) => ROOMS[area] && time - t <= RECENT_MOTION_MS)
+    .map(([area]) => area.replace('_', ' '));
+  if (moving.length) bits.push(`Recent movement: ${moving.join(', ')}.`);
   const spare = state.temperatures.spare_room;
   if (spare !== undefined) bits.push(`Spare room ${spare.toFixed(1)} degrees.`);
   return bits.join(' ');
 }
 
 export function Plan({ state, time, marks, legs }: Props) {
-  const at = time + LEAD_MS;
-  const shownMarks = marks.filter((m) => m.time <= at);
+  const shownMarks = marks.filter((m) => m.time <= time);
   const current = shownMarks[shownMarks.length - 1];
   const spareTemp = state.temperatures.spare_room;
   const spareChange = state.temperatureChange.spare_room;
@@ -159,7 +163,7 @@ export function Plan({ state, time, marks, legs }: Props) {
         .filter(([id]) => ROOMS[id])
         .map(([id, [x, y]]) => {
           const on = state.lights[id] === true;
-          const moving = state.lastMotion[id] !== undefined && at - state.lastMotion[id]! <= RECENT_MOTION_MS;
+          const moving = state.lastMotion[id] !== undefined && time - state.lastMotion[id]! <= RECENT_MOTION_MS;
           return (
             <g key={id}>
               <circle cx={x} cy={y} r={on ? 46 : 0} fill="url(#lamp)" className="lamp-wash" />
@@ -172,7 +176,7 @@ export function Plan({ state, time, marks, legs }: Props) {
       {/* The haunting: legs of the route, then numbered marks */}
       <g className="fill-none stroke-red" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         {legs
-          .filter((l) => l.time <= at)
+          .filter((l) => l.time <= time)
           .map((l) => (
             <path key={l.time} d={toPath(l.points)} strokeDasharray="7 6" className="leg" markerEnd="url(#arrow)" />
           ))}

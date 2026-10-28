@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import fixture from '../../fixtures/night-01.json';
-import { findMentions, formatClock } from '../core/clock';
+import { findMentions, formatClock, resolveMinute } from '../core/clock';
 import { resolveConfig } from '../core/ollama';
 import { buildMessages } from '../core/prompt';
 import { houseAt } from '../core/state';
@@ -9,7 +9,7 @@ import { NIGHT_END, NIGHT_START, type HaEvent } from '../data/types';
 import { friendlyError } from './errors';
 import { Log } from './Log';
 import { Plan } from './Plan';
-import { LEAD_MS, buildLegs, buildMarks } from './plan';
+import { buildLegs, buildMarks } from './plan';
 import { defaultConfig, loadConfig, saveConfig } from './settings';
 import { Story } from './Story';
 import { Strip } from './Strip';
@@ -29,6 +29,9 @@ const MARKS = buildMarks(PICKED);
 const LEGS = buildLegs(MARKS);
 
 const DATES = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+/** A time named only to the minute becomes the instant of the event it points at. Exact times pass straight through setTime. */
+const atMinute = (ms: number) => resolveMinute(ms, SCORED);
+
 const NIGHT_LABEL = `${new Date(START).getUTCDate()} to ${DATES.format(new Date(END))}`;
 
 export function App() {
@@ -38,18 +41,18 @@ export function App() {
   const [draft, setDraft] = useState(() => ({ host: config.host, model: config.model }));
   const [onlySelected, setOnlySelected] = useState(false);
   // Opens on the last unexplained event, so the first thing you see is the haunted house.
-  const [time, setTime] = useState(() => (MARKS.length ? Math.ceil(MARKS[MARKS.length - 1]!.time / 60_000) * 60_000 - 60_000 : START));
+  const [time, setTime] = useState(() => (MARKS.length ? MARKS[MARKS.length - 1]!.time : START));
   const story = useStory();
 
   const streaming = story.status === 'streaming';
   const error = story.status === 'error' ? friendlyError(story.error, config, window.location.origin) : null;
-  const house = useMemo(() => houseAt(history, time + LEAD_MS), [time]);
+  const house = useMemo(() => houseAt(history, time), [time]);
 
   // As the story names a time, the chart and plan follow it.
   const mentions = useMemo(() => findMentions(story.text, START, END), [story.text]);
   const lastMention = mentions[mentions.length - 1]?.ms;
   useEffect(() => {
-    if (lastMention !== undefined) setTime(lastMention);
+    if (lastMention !== undefined) setTime(atMinute(lastMention));
   }, [lastMention]);
 
   /** Normalises the draft, saves it if it changed, and returns the config to use. */
@@ -143,7 +146,7 @@ export function App() {
                   show the house as it was.
                 </p>
               )}
-              <Story text={story.text} streaming={streaming} start={START} end={END} onJump={setTime} />
+              <Story text={story.text} streaming={streaming} start={START} end={END} onJump={(ms) => setTime(atMinute(ms))} />
             </div>
 
             <details className="mt-6 border-t border-line/25 pt-3 text-muted">
@@ -200,7 +203,7 @@ export function App() {
               <figcaption className="mb-1 text-[1.05rem] italic text-muted">
                 <span className="font-mono text-[0.7rem] not-italic">fig. 2</span>&ensp;The night. Drag along it, or use the arrow keys.
               </figcaption>
-              <Strip events={SCORED} history={history} selected={SELECTED} start={START} end={END} time={time} onTime={setTime} />
+              <Strip events={SCORED} history={history} selected={SELECTED} start={START} end={END} time={time} onTime={(ms) => setTime(atMinute(ms))} />
             </figure>
 
             <section aria-labelledby="key-heading">

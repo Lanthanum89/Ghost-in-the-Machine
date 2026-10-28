@@ -1,6 +1,9 @@
+import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { makeEvent } from '../data/types';
+import { makeEvent, type HaEvent } from '../data/types';
+import { resolveMinute } from './clock';
 import { houseAt } from './state';
+import { scoreEvents } from './timeline';
 
 const ev = makeEvent;
 const at = (hhmm: string) => Date.parse(ev('light.kitchen', 'on', hhmm).last_changed);
@@ -51,5 +54,27 @@ describe('houseAt', () => {
     expect(s.temperatureChange.spare_room).toBeCloseTo(-6.3);
     expect(houseAt(history, at('02:35')).temperatureChange.spare_room).toBeUndefined();
     expect(houseAt(history, at('02:35')).temperatures.spare_room).toBe(19.3);
+  });
+});
+
+describe('replaying the fixture night at the instant a record entry or story time points to', () => {
+  const night: HaEvent[] = JSON.parse(readFileSync('fixtures/night-01.json', 'utf8'));
+  const scored = scoreEvents(night);
+  const ms = (iso: string) => Date.parse(iso);
+
+  it('shows the front door open at the exact instant it opened, although it closes 20 seconds later', () => {
+    expect(houseAt(night, ms('2026-10-30T18:47:55Z')).doors.front_door).toBe(true);
+    expect(houseAt(night, ms('2026-10-30T18:48:15Z')).doors.front_door).toBe(false);
+  });
+
+  it('shows the bathroom light on when the story says 01:13', () => {
+    const instant = resolveMinute(ms('2026-10-31T01:13:00Z'), scored);
+    expect(houseAt(night, instant).lights.bathroom).toBe(true);
+  });
+
+  it('shows the back door open when the story says 03:12, although it closes within the minute', () => {
+    const instant = resolveMinute(ms('2026-10-31T03:12:00Z'), scored);
+    expect(houseAt(night, instant).doors.back_door).toBe(true);
+    expect(houseAt(night, ms('2026-10-31T03:13:00Z')).doors.back_door).toBe(false);
   });
 });

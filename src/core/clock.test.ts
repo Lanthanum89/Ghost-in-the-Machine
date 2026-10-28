@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { clockToMs, findMentions, formatClock } from './clock';
+import { clockToMs, findMentions, formatClock, resolveMinute } from './clock';
 
 const start = Date.parse('2026-10-30T18:00:00Z');
 const end = Date.parse('2026-10-31T07:00:00Z');
@@ -33,5 +33,26 @@ describe('findMentions', () => {
   it('does not match numbers that are not times', () => {
     expect(findMentions('Room 101:23456 and 12:345', start, end)).toEqual([]);
     expect(findMentions('ratio 3:1', start, end)).toEqual([]);
+  });
+});
+
+describe('resolveMinute', () => {
+  const minute = Date.parse('2026-10-31T01:13:00Z');
+  const at = (s: number) => minute + s * 1000;
+
+  it('uses the start of the minute when nothing happened in it', () => {
+    expect(resolveMinute(minute, [{ time: at(-5), score: 9 }, { time: at(61), score: 9 }])).toBe(minute);
+  });
+
+  it('picks the highest-scoring event in the minute', () => {
+    expect(resolveMinute(minute, [{ time: at(5), score: 8 }, { time: at(40), score: 3 }])).toBe(at(5));
+  });
+
+  it('takes the latest event among equals, so the state includes all of them', () => {
+    expect(resolveMinute(minute, [{ time: at(30), score: 3 }, { time: at(40), score: 3 }])).toBe(at(40));
+  });
+
+  it('floors a time that is not on a minute boundary', () => {
+    expect(resolveMinute(at(20), [{ time: at(40), score: 3 }])).toBe(at(40));
   });
 });
