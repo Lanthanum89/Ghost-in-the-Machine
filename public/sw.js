@@ -4,9 +4,9 @@
 // Cache storage is shared by every site on this origin (for example other projects on the same
 // GitHub Pages account), so only caches with this prefix are ever touched.
 const PREFIX = 'ghost-in-the-house-';
-const CACHE = `${PREFIX}v2`;
+const CACHE = `${PREFIX}v3`;
 
-/** Caches the page and everything it links to (the hashed JS and CSS, manifest and icons). */
+/** Caches the page and everything it links to (the hashed JS and CSS, manifest, icons and fonts). */
 async function precache() {
   const scope = self.registration.scope;
   const scopePath = new URL(scope).pathname;
@@ -16,6 +16,14 @@ async function precache() {
   for (const [, ref] of html.matchAll(/(?:src|href)="([^"#]+)"/g)) {
     const url = new URL(ref, scope);
     if (url.origin === self.location.origin && url.pathname.startsWith(scopePath)) urls.add(url.href);
+  }
+  // Fonts and other files are only named inside the stylesheets, so read those too.
+  for (const href of [...urls].filter((u) => u.endsWith('.css'))) {
+    const css = await (await fetch(href, { cache: 'reload' })).text();
+    for (const [, ref] of css.matchAll(/url\(\s*["']?([^"')]+)["']?\s*\)/g)) {
+      // Only real files: the grain texture is an inline SVG whose own url(#n) must not be fetched.
+      if (/\.(woff2?|ttf|otf|png|jpe?g|webp|gif|svg)(\?.*)?$/i.test(ref)) urls.add(new URL(ref, href).href);
+    }
   }
   await (await caches.open(CACHE)).addAll([...urls]);
 }
