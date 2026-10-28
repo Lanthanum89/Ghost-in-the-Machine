@@ -11,6 +11,7 @@ import { NIGHT_END, NIGHT_START, type HaEvent } from '../data/types';
 import { friendlyError } from './errors';
 import { Log } from './Log';
 import { Plan } from './Plan';
+import { timeAtStart } from './playback';
 import { buildLegs, buildMarks } from './plan';
 import { defaultConfig, loadConfig, saveConfig } from './settings';
 import { Story } from './Story';
@@ -95,9 +96,14 @@ export function App() {
   };
 
   const tell = () => {
-    setTime(START);
-    if (mode === 'recorded') story.play(RECORDED.text, prefersReducedMotion());
-    else void story.start(buildMessages(PICKED), commitDraft());
+    if (mode === 'recorded') {
+      const instant = prefersReducedMotion();
+      setTime(timeAtStart({ instant, text: RECORDED.text, start: START, end: END, resolve: atMinute }));
+      story.play(RECORDED.text, instant);
+    } else {
+      setTime(START);
+      void story.start(buildMessages(PICKED), commitDraft());
+    }
   };
 
   const titleBlock: Array<[string, string]> = [
