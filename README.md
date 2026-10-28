@@ -57,7 +57,7 @@ ollama pull llama3.1:8b
 ollama serve
 ```
 
-If Ollama is already running as a desktop app or service, skip `ollama serve`.
+If Ollama is already running as a desktop app or service (the Windows and Mac installers start it for you), skip `ollama serve`. If it says the port is already in use, Ollama is already running.
 
 ```bash
 pnpm install
@@ -110,10 +110,16 @@ The app is a PWA. A small service worker caches the page, so once it has been op
 
 A page served from Pages talks to **your** Ollama, in your browser, at `http://localhost:11434`. GitHub only hosts the static files. Two things have to be true for that to work:
 
-1. Ollama must allow the page's origin:
+1. Ollama must allow the page's origin. On macOS and Linux:
 
    ```bash
    OLLAMA_ORIGINS=https://lanthanum89.github.io ollama serve
+   ```
+
+   On Windows PowerShell, set it once and then quit and reopen Ollama from the tray:
+
+   ```powershell
+   setx OLLAMA_ORIGINS "https://lanthanum89.github.io"
    ```
 
 2. Your browser must allow an HTTPS page to reach `http://localhost`. Chromium-based browsers generally treat localhost as trustworthy, though newer versions may ask for local network permission. Safari has historically blocked it. I have only tested this against a local mock in Chromium, not across browsers.
