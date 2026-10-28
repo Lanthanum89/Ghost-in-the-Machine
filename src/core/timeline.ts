@@ -58,6 +58,9 @@ export const DEFAULT_OPTIONS: ScoreOptions = {
   routineMin: 8,
 };
 
+/** A score at or above this is shown as an unexplained event, not just a night-time one. */
+export const NOTABLE_SCORE = 5;
+
 export const POINTS = { night: 1, unexplained: 3, asleep: 2, rare: 2, delta: 5, routine: -1 } as const;
 
 export function kindOf(entityId: string): Kind {

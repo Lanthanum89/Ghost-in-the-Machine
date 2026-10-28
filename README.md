@@ -4,7 +4,7 @@ A night of smart home sensor events goes in. A short ghost story comes out, writ
 
 Built for the Hacktoberfest Open-Source AI Challenge, Week 4: Ghost in the Machine.
 
-The page puts the story next to the real, boring sensor timeline behind it. You watch the model describe the spare room light that came on at 01:58, then look right and see the log line it came from.
+The page is a surveyor's plan of the house. The story streams in beside a floor plan and a chart of the whole night, and every time the story names a moment ("01:58") the plan and chart move to it, showing the lamps, doors, movement and temperatures as they were. The unexplained events are numbered and joined by a red route through the house, and the raw sensor record sits underneath.
 
 ## The principle
 
@@ -57,7 +57,7 @@ ollama pull llama3.1:8b
 ollama serve
 ```
 
-If Ollama is already running as a desktop app or service, skip `ollama serve`.
+If Ollama is already running as a desktop app or service (the Windows and Mac installers start it for you), skip `ollama serve`. If it says the port is already in use, Ollama is already running.
 
 ```bash
 pnpm install
@@ -110,10 +110,16 @@ The app is a PWA. A small service worker caches the page, so once it has been op
 
 A page served from Pages talks to **your** Ollama, in your browser, at `http://localhost:11434`. GitHub only hosts the static files. Two things have to be true for that to work:
 
-1. Ollama must allow the page's origin:
+1. Ollama must allow the page's origin. On macOS and Linux:
 
    ```bash
    OLLAMA_ORIGINS=https://lanthanum89.github.io ollama serve
+   ```
+
+   On Windows PowerShell, set it once and then quit and reopen Ollama from the tray:
+
+   ```powershell
+   setx OLLAMA_ORIGINS "https://lanthanum89.github.io"
    ```
 
 2. Your browser must allow an HTTPS page to reach `http://localhost`. Chromium-based browsers generally treat localhost as trustworthy, though newer versions may ask for local network permission. Safari has historically blocked it. I have only tested this against a local mock in Chromium, not across browsers.
@@ -146,7 +152,8 @@ src/data/ha-client.ts    stub for the Home Assistant history API (untested)
 src/core/timeline.ts     filter, dedupe, score, pick, describe
 src/core/prompt.ts       system prompt and timeline formatting
 src/core/ollama.ts       streaming Ollama client with typed errors
-src/web/                 React page
+src/web/                 React page: house plan, night chart, story, raw record
+src/web/fonts/           bundled fonts and their licences
 fixtures/night-01.json   committed fixture, so the demo is reproducible
 ```
 
@@ -157,6 +164,10 @@ The planted anomalies, all at night while both phones are home:
 - 03:01 the spare room temperature has fallen 6 degrees in 10 minutes
 - 03:12 the back door opens, with no movement beforehand
 
+## Fonts
+
+The page is set in IM Fell English and IM Fell Double Pica (the narrator and the title) and Martian Mono (the machine's voice), bundled as WOFF2 files in `src/web/fonts/`. They are SIL Open Font License 1.1 fonts, with their licence texts alongside, and were copied from the `@fontsource` packages rather than added as dependencies. Nothing is loaded from a font CDN, so the page makes no third-party requests and the service worker caches the fonts for offline use.
+
 ## Licence
 
-MIT. See [LICENSE](LICENSE).
+MIT for the code. See [LICENSE](LICENSE). The bundled fonts keep their own licences.
