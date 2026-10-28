@@ -1,0 +1,72 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-ink: #0a0c11;
+  --color-panel: #11141b;
+  --color-edge: #252b39;
+  --color-text: #e8e4da;
+  --color-muted: #a3acbb;
+  --color-amber: #f0c36b;
+  --color-ghost: #8fe0cf;
+  --color-danger: #ff9b8f;
+  --font-serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+}
+
+html {
+  background: var(--color-ink);
+  color: var(--color-text);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 50% -10%, rgb(143 224 207 / 0.07), transparent 55%),
+    var(--color-ink);
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-amber);
+  outline-offset: 2px;
+}
+
+.caret::after {
+  content: '';
+  display: inline-block;
+  width: 0.5ch;
+  height: 1.1em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background: var(--color-ghost);
+  animation: blink 1.1s steps(2, start) infinite;
+}
+
+.fade-in {
+  animation: fade-in 0.6s ease-out both;
+}
+
+@keyframes blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .caret::after {
+    animation: none;
+  }
+  .fade-in {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
