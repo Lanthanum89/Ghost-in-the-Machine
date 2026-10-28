@@ -1,0 +1,1232 @@
+[
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "on",
+    "last_changed": "2026-10-30T18:03:56Z"
+  },
+  {
+    "entity_id": "climate.heating",
+    "friendly_name": "Heating",
+    "state": "heat",
+    "last_changed": "2026-10-30T18:05:06Z"
+  },
+  {
+    "entity_id": "device_tracker.alex_phone",
+    "friendly_name": "Alex's phone",
+    "state": "home",
+    "last_changed": "2026-10-30T18:12:10Z"
+  },
+  {
+    "entity_id": "binary_sensor.front_door",
+    "friendly_name": "Front door",
+    "state": "on",
+    "last_changed": "2026-10-30T18:12:40Z"
+  },
+  {
+    "entity_id": "binary_sensor.hallway_motion",
+    "friendly_name": "Hallway motion",
+    "state": "on",
+    "last_changed": "2026-10-30T18:13:05Z"
+  },
+  {
+    "entity_id": "light.hallway",
+    "friendly_name": "Hallway light",
+    "state": "on",
+    "last_changed": "2026-10-30T18:13:08Z"
+  },
+  {
+    "entity_id": "binary_sensor.front_door",
+    "friendly_name": "Front door",
+    "state": "off",
+    "last_changed": "2026-10-30T18:13:20Z"
+  },
+  {
+    "entity_id": "binary_sensor.hallway_motion",
+    "friendly_name": "Hallway motion",
+    "state": "off",
+    "last_changed": "2026-10-30T18:13:45Z"
+  },
+  {
+    "entity_id": "binary_sensor.living_room_motion",
+    "friendly_name": "Living room motion",
+    "state": "on",
+    "last_changed": "2026-10-30T18:14:30Z"
+  },
+  {
+    "entity_id": "light.living_room",
+    "friendly_name": "Living room light",
+    "state": "on",
+    "last_changed": "2026-10-30T18:14:35Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "off",
+    "last_changed": "2026-10-30T18:17:02Z"
+  },
+  {
+    "entity_id": "sensor.fridge_temperature",
+    "friendly_name": "Fridge temperature",
+    "state": "3.9",
+    "last_changed": "2026-10-30T18:17:32Z"
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "friendly_name": "Living room temperature",
+    "state": "19.8",
+    "last_changed": "2026-10-30T18:19:04Z"
+  },
+  {
+    "entity_id": "light.hallway",
+    "friendly_name": "Hallway light",
+    "state": "off",
+    "last_changed": "2026-10-30T18:20:00Z"
+  },
+  {
+    "entity_id": "sensor.spare_room_temperature",
+    "friendly_name": "Spare room temperature",
+    "state": "19.8",
+    "last_changed": "2026-10-30T18:30:00Z"
+  },
+  {
+    "entity_id": "binary_sensor.kitchen_motion",
+    "friendly_name": "Kitchen motion",
+    "state": "on",
+    "last_changed": "2026-10-30T18:40:12Z"
+  },
+  {
+    "entity_id": "light.kitchen",
+    "friendly_name": "Kitchen light",
+    "state": "on",
+    "last_changed": "2026-10-30T18:40:20Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_door",
+    "friendly_name": "Fridge door",
+    "state": "on",
+    "last_changed": "2026-10-30T18:41:00Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_door",
+    "friendly_name": "Fridge door",
+    "state": "off",
+    "last_changed": "2026-10-30T18:41:25Z"
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "friendly_name": "Living room temperature",
+    "state": "19.9",
+    "last_changed": "2026-10-30T18:42:52Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "on",
+    "last_changed": "2026-10-30T18:47:01Z"
+  },
+  {
+    "entity_id": "device_tracker.sam_phone",
+    "friendly_name": "Sam's phone",
+    "state": "home",
+    "last_changed": "2026-10-30T18:47:30Z"
+  },
+  {
+    "entity_id": "binary_sensor.front_door",
+    "friendly_name": "Front door",
+    "state": "on",
+    "last_changed": "2026-10-30T18:47:55Z"
+  },
+  {
+    "entity_id": "binary_sensor.hallway_motion",
+    "friendly_name": "Hallway motion",
+    "state": "on",
+    "last_changed": "2026-10-30T18:48:10Z"
+  },
+  {
+    "entity_id": "binary_sensor.front_door",
+    "friendly_name": "Front door",
+    "state": "off",
+    "last_changed": "2026-10-30T18:48:15Z"
+  },
+  {
+    "entity_id": "binary_sensor.hallway_motion",
+    "friendly_name": "Hallway motion",
+    "state": "off",
+    "last_changed": "2026-10-30T18:48:50Z"
+  },
+  {
+    "entity_id": "binary_sensor.living_room_motion",
+    "friendly_name": "Living room motion",
+    "state": "off",
+    "last_changed": "2026-10-30T18:52:00Z"
+  },
+  {
+    "entity_id": "sensor.spare_room_temperature",
+    "friendly_name": "Spare room temperature",
+    "state": "19.8",
+    "last_changed": "2026-10-30T19:00:00Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "off",
+    "last_changed": "2026-10-30T19:00:27Z"
+  },
+  {
+    "entity_id": "sensor.fridge_temperature",
+    "friendly_name": "Fridge temperature",
+    "state": "3.6",
+    "last_changed": "2026-10-30T19:00:57Z"
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "friendly_name": "Living room temperature",
+    "state": "20.1",
+    "last_changed": "2026-10-30T19:01:36Z"
+  },
+  {
+    "entity_id": "climate.heating",
+    "friendly_name": "Heating",
+    "state": "idle",
+    "last_changed": "2026-10-30T19:08:46Z"
+  },
+  {
+    "entity_id": "binary_sensor.kitchen_motion",
+    "friendly_name": "Kitchen motion",
+    "state": "off",
+    "last_changed": "2026-10-30T19:25:00Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "on",
+    "last_changed": "2026-10-30T19:26:35Z"
+  },
+  {
+    "entity_id": "sensor.spare_room_temperature",
+    "friendly_name": "Spare room temperature",
+    "state": "19.7",
+    "last_changed": "2026-10-30T19:30:00Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "off",
+    "last_changed": "2026-10-30T19:38:07Z"
+  },
+  {
+    "entity_id": "sensor.fridge_temperature",
+    "friendly_name": "Fridge temperature",
+    "state": "3.6",
+    "last_changed": "2026-10-30T19:38:37Z"
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "friendly_name": "Living room temperature",
+    "state": "20.0",
+    "last_changed": "2026-10-30T19:39:30Z"
+  },
+  {
+    "entity_id": "sensor.spare_room_temperature",
+    "friendly_name": "Spare room temperature",
+    "state": "19.7",
+    "last_changed": "2026-10-30T20:00:00Z"
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "friendly_name": "Living room temperature",
+    "state": "19.9",
+    "last_changed": "2026-10-30T20:01:16Z"
+  },
+  {
+    "entity_id": "device_tracker.sam_phone",
+    "friendly_name": "Sam's phone",
+    "state": "not_home",
+    "last_changed": "2026-10-30T20:05:00Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "on",
+    "last_changed": "2026-10-30T20:08:16Z"
+  },
+  {
+    "entity_id": "climate.heating",
+    "friendly_name": "Heating",
+    "state": "heat",
+    "last_changed": "2026-10-30T20:15:27Z"
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "friendly_name": "Living room temperature",
+    "state": "20.1",
+    "last_changed": "2026-10-30T20:19:47Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "off",
+    "last_changed": "2026-10-30T20:21:08Z"
+  },
+  {
+    "entity_id": "sensor.fridge_temperature",
+    "friendly_name": "Fridge temperature",
+    "state": "3.6",
+    "last_changed": "2026-10-30T20:21:38Z"
+  },
+  {
+    "entity_id": "sensor.spare_room_temperature",
+    "friendly_name": "Spare room temperature",
+    "state": "19.6",
+    "last_changed": "2026-10-30T20:30:00Z"
+  },
+  {
+    "entity_id": "device_tracker.sam_phone",
+    "friendly_name": "Sam's phone",
+    "state": "home",
+    "last_changed": "2026-10-30T20:41:00Z"
+  },
+  {
+    "entity_id": "binary_sensor.front_door",
+    "friendly_name": "Front door",
+    "state": "on",
+    "last_changed": "2026-10-30T20:41:20Z"
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "friendly_name": "Living room temperature",
+    "state": "20.2",
+    "last_changed": "2026-10-30T20:41:24Z"
+  },
+  {
+    "entity_id": "binary_sensor.hallway_motion",
+    "friendly_name": "Hallway motion",
+    "state": "on",
+    "last_changed": "2026-10-30T20:41:40Z"
+  },
+  {
+    "entity_id": "binary_sensor.front_door",
+    "friendly_name": "Front door",
+    "state": "off",
+    "last_changed": "2026-10-30T20:41:50Z"
+  },
+  {
+    "entity_id": "binary_sensor.hallway_motion",
+    "friendly_name": "Hallway motion",
+    "state": "off",
+    "last_changed": "2026-10-30T20:42:10Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "on",
+    "last_changed": "2026-10-30T20:47:48Z"
+  },
+  {
+    "entity_id": "sensor.spare_room_temperature",
+    "friendly_name": "Spare room temperature",
+    "state": "19.6",
+    "last_changed": "2026-10-30T21:00:00Z"
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "friendly_name": "Living room temperature",
+    "state": "20.3",
+    "last_changed": "2026-10-30T21:00:31Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "off",
+    "last_changed": "2026-10-30T21:01:31Z"
+  },
+  {
+    "entity_id": "sensor.fridge_temperature",
+    "friendly_name": "Fridge temperature",
+    "state": "3.6",
+    "last_changed": "2026-10-30T21:02:01Z"
+  },
+  {
+    "entity_id": "climate.heating",
+    "friendly_name": "Heating",
+    "state": "idle",
+    "last_changed": "2026-10-30T21:14:59Z"
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "friendly_name": "Living room temperature",
+    "state": "20.2",
+    "last_changed": "2026-10-30T21:17:17Z"
+  },
+  {
+    "entity_id": "binary_sensor.kitchen_motion",
+    "friendly_name": "Kitchen motion",
+    "state": "on",
+    "last_changed": "2026-10-30T21:30:00Z"
+  },
+  {
+    "entity_id": "sensor.spare_room_temperature",
+    "friendly_name": "Spare room temperature",
+    "state": "19.5",
+    "last_changed": "2026-10-30T21:30:00Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_door",
+    "friendly_name": "Fridge door",
+    "state": "on",
+    "last_changed": "2026-10-30T21:31:00Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_door",
+    "friendly_name": "Fridge door",
+    "state": "off",
+    "last_changed": "2026-10-30T21:31:30Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "on",
+    "last_changed": "2026-10-30T21:32:50Z"
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "friendly_name": "Living room temperature",
+    "state": "20.1",
+    "last_changed": "2026-10-30T21:40:09Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "off",
+    "last_changed": "2026-10-30T21:45:04Z"
+  },
+  {
+    "entity_id": "sensor.fridge_temperature",
+    "friendly_name": "Fridge temperature",
+    "state": "4.0",
+    "last_changed": "2026-10-30T21:45:34Z"
+  },
+  {
+    "entity_id": "binary_sensor.kitchen_motion",
+    "friendly_name": "Kitchen motion",
+    "state": "off",
+    "last_changed": "2026-10-30T21:48:00Z"
+  },
+  {
+    "entity_id": "binary_sensor.living_room_motion",
+    "friendly_name": "Living room motion",
+    "state": "on",
+    "last_changed": "2026-10-30T21:50:00Z"
+  },
+  {
+    "entity_id": "climate.heating",
+    "friendly_name": "Heating",
+    "state": "heat",
+    "last_changed": "2026-10-30T21:55:33Z"
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "friendly_name": "Living room temperature",
+    "state": "20.2",
+    "last_changed": "2026-10-30T21:58:36Z"
+  },
+  {
+    "entity_id": "sensor.spare_room_temperature",
+    "friendly_name": "Spare room temperature",
+    "state": "19.5",
+    "last_changed": "2026-10-30T22:00:00Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "on",
+    "last_changed": "2026-10-30T22:11:34Z"
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "friendly_name": "Living room temperature",
+    "state": "20.4",
+    "last_changed": "2026-10-30T22:22:48Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "off",
+    "last_changed": "2026-10-30T22:25:14Z"
+  },
+  {
+    "entity_id": "sensor.fridge_temperature",
+    "friendly_name": "Fridge temperature",
+    "state": "3.7",
+    "last_changed": "2026-10-30T22:25:44Z"
+  },
+  {
+    "entity_id": "binary_sensor.living_room_motion",
+    "friendly_name": "Living room motion",
+    "state": "off",
+    "last_changed": "2026-10-30T22:29:00Z"
+  },
+  {
+    "entity_id": "light.living_room",
+    "friendly_name": "Living room light",
+    "state": "off",
+    "last_changed": "2026-10-30T22:30:00Z"
+  },
+  {
+    "entity_id": "sensor.spare_room_temperature",
+    "friendly_name": "Spare room temperature",
+    "state": "19.5",
+    "last_changed": "2026-10-30T22:30:00Z"
+  },
+  {
+    "entity_id": "climate.heating",
+    "friendly_name": "Heating",
+    "state": "idle",
+    "last_changed": "2026-10-30T22:30:09Z"
+  },
+  {
+    "entity_id": "light.kitchen",
+    "friendly_name": "Kitchen light",
+    "state": "off",
+    "last_changed": "2026-10-30T22:31:00Z"
+  },
+  {
+    "entity_id": "binary_sensor.hallway_motion",
+    "friendly_name": "Hallway motion",
+    "state": "on",
+    "last_changed": "2026-10-30T22:32:00Z"
+  },
+  {
+    "entity_id": "binary_sensor.hallway_motion",
+    "friendly_name": "Hallway motion",
+    "state": "off",
+    "last_changed": "2026-10-30T22:33:00Z"
+  },
+  {
+    "entity_id": "binary_sensor.bathroom_motion",
+    "friendly_name": "Bathroom motion",
+    "state": "on",
+    "last_changed": "2026-10-30T22:33:05Z"
+  },
+  {
+    "entity_id": "light.bathroom",
+    "friendly_name": "Bathroom light",
+    "state": "on",
+    "last_changed": "2026-10-30T22:33:10Z"
+  },
+  {
+    "entity_id": "light.bathroom",
+    "friendly_name": "Bathroom light",
+    "state": "off",
+    "last_changed": "2026-10-30T22:39:00Z"
+  },
+  {
+    "entity_id": "binary_sensor.bathroom_motion",
+    "friendly_name": "Bathroom motion",
+    "state": "off",
+    "last_changed": "2026-10-30T22:39:30Z"
+  },
+  {
+    "entity_id": "binary_sensor.hallway_motion",
+    "friendly_name": "Hallway motion",
+    "state": "on",
+    "last_changed": "2026-10-30T22:39:40Z"
+  },
+  {
+    "entity_id": "light.hallway",
+    "friendly_name": "Hallway light",
+    "state": "off",
+    "last_changed": "2026-10-30T22:40:10Z"
+  },
+  {
+    "entity_id": "binary_sensor.hallway_motion",
+    "friendly_name": "Hallway motion",
+    "state": "off",
+    "last_changed": "2026-10-30T22:40:20Z"
+  },
+  {
+    "entity_id": "binary_sensor.bedroom_motion",
+    "friendly_name": "Bedroom motion",
+    "state": "on",
+    "last_changed": "2026-10-30T22:40:40Z"
+  },
+  {
+    "entity_id": "light.bedroom",
+    "friendly_name": "Bedroom light",
+    "state": "on",
+    "last_changed": "2026-10-30T22:41:00Z"
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "friendly_name": "Living room temperature",
+    "state": "20.3",
+    "last_changed": "2026-10-30T22:42:19Z"
+  },
+  {
+    "entity_id": "light.bedroom",
+    "friendly_name": "Bedroom light",
+    "state": "off",
+    "last_changed": "2026-10-30T22:48:00Z"
+  },
+  {
+    "entity_id": "binary_sensor.bedroom_motion",
+    "friendly_name": "Bedroom motion",
+    "state": "off",
+    "last_changed": "2026-10-30T22:49:00Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "on",
+    "last_changed": "2026-10-30T22:59:07Z"
+  },
+  {
+    "entity_id": "sensor.spare_room_temperature",
+    "friendly_name": "Spare room temperature",
+    "state": "19.4",
+    "last_changed": "2026-10-30T23:00:00Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "off",
+    "last_changed": "2026-10-30T23:12:31Z"
+  },
+  {
+    "entity_id": "sensor.fridge_temperature",
+    "friendly_name": "Fridge temperature",
+    "state": "3.6",
+    "last_changed": "2026-10-30T23:13:01Z"
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "friendly_name": "Living room temperature",
+    "state": "20.2",
+    "last_changed": "2026-10-30T23:18:20Z"
+  },
+  {
+    "entity_id": "sensor.spare_room_temperature",
+    "friendly_name": "Spare room temperature",
+    "state": "19.4",
+    "last_changed": "2026-10-30T23:30:00Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "on",
+    "last_changed": "2026-10-30T23:39:18Z"
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "friendly_name": "Living room temperature",
+    "state": "20.1",
+    "last_changed": "2026-10-30T23:41:56Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "off",
+    "last_changed": "2026-10-30T23:52:47Z"
+  },
+  {
+    "entity_id": "sensor.fridge_temperature",
+    "friendly_name": "Fridge temperature",
+    "state": "4.0",
+    "last_changed": "2026-10-30T23:53:17Z"
+  },
+  {
+    "entity_id": "sensor.spare_room_temperature",
+    "friendly_name": "Spare room temperature",
+    "state": "19.4",
+    "last_changed": "2026-10-31T00:00:00Z"
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "friendly_name": "Living room temperature",
+    "state": "20.0",
+    "last_changed": "2026-10-31T00:02:14Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "on",
+    "last_changed": "2026-10-31T00:19:11Z"
+  },
+  {
+    "entity_id": "sensor.spare_room_temperature",
+    "friendly_name": "Spare room temperature",
+    "state": "19.3",
+    "last_changed": "2026-10-31T00:30:00Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "off",
+    "last_changed": "2026-10-31T00:31:12Z"
+  },
+  {
+    "entity_id": "sensor.fridge_temperature",
+    "friendly_name": "Fridge temperature",
+    "state": "4.2",
+    "last_changed": "2026-10-31T00:31:42Z"
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "friendly_name": "Living room temperature",
+    "state": "19.8",
+    "last_changed": "2026-10-31T00:38:51Z"
+  },
+  {
+    "entity_id": "sensor.spare_room_temperature",
+    "friendly_name": "Spare room temperature",
+    "state": "19.3",
+    "last_changed": "2026-10-31T01:00:00Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "on",
+    "last_changed": "2026-10-31T01:03:47Z"
+  },
+  {
+    "entity_id": "binary_sensor.bedroom_motion",
+    "friendly_name": "Bedroom motion",
+    "state": "on",
+    "last_changed": "2026-10-31T01:12:20Z"
+  },
+  {
+    "entity_id": "binary_sensor.hallway_motion",
+    "friendly_name": "Hallway motion",
+    "state": "on",
+    "last_changed": "2026-10-31T01:12:50Z"
+  },
+  {
+    "entity_id": "binary_sensor.bathroom_motion",
+    "friendly_name": "Bathroom motion",
+    "state": "on",
+    "last_changed": "2026-10-31T01:13:30Z"
+  },
+  {
+    "entity_id": "light.bathroom",
+    "friendly_name": "Bathroom light",
+    "state": "on",
+    "last_changed": "2026-10-31T01:13:40Z"
+  },
+  {
+    "entity_id": "binary_sensor.bedroom_motion",
+    "friendly_name": "Bedroom motion",
+    "state": "off",
+    "last_changed": "2026-10-31T01:13:50Z"
+  },
+  {
+    "entity_id": "binary_sensor.hallway_motion",
+    "friendly_name": "Hallway motion",
+    "state": "off",
+    "last_changed": "2026-10-31T01:13:55Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "off",
+    "last_changed": "2026-10-31T01:16:55Z"
+  },
+  {
+    "entity_id": "sensor.fridge_temperature",
+    "friendly_name": "Fridge temperature",
+    "state": "4.1",
+    "last_changed": "2026-10-31T01:17:25Z"
+  },
+  {
+    "entity_id": "light.bathroom",
+    "friendly_name": "Bathroom light",
+    "state": "off",
+    "last_changed": "2026-10-31T01:18:10Z"
+  },
+  {
+    "entity_id": "binary_sensor.bathroom_motion",
+    "friendly_name": "Bathroom motion",
+    "state": "off",
+    "last_changed": "2026-10-31T01:18:20Z"
+  },
+  {
+    "entity_id": "binary_sensor.hallway_motion",
+    "friendly_name": "Hallway motion",
+    "state": "on",
+    "last_changed": "2026-10-31T01:18:40Z"
+  },
+  {
+    "entity_id": "binary_sensor.hallway_motion",
+    "friendly_name": "Hallway motion",
+    "state": "off",
+    "last_changed": "2026-10-31T01:19:00Z"
+  },
+  {
+    "entity_id": "binary_sensor.bedroom_motion",
+    "friendly_name": "Bedroom motion",
+    "state": "on",
+    "last_changed": "2026-10-31T01:19:10Z"
+  },
+  {
+    "entity_id": "binary_sensor.bedroom_motion",
+    "friendly_name": "Bedroom motion",
+    "state": "off",
+    "last_changed": "2026-10-31T01:19:40Z"
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "friendly_name": "Living room temperature",
+    "state": "19.6",
+    "last_changed": "2026-10-31T01:22:17Z"
+  },
+  {
+    "entity_id": "sensor.spare_room_temperature",
+    "friendly_name": "Spare room temperature",
+    "state": "19.3",
+    "last_changed": "2026-10-31T01:30:00Z"
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "friendly_name": "Living room temperature",
+    "state": "19.5",
+    "last_changed": "2026-10-31T01:37:36Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "on",
+    "last_changed": "2026-10-31T01:45:54Z"
+  },
+  {
+    "entity_id": "light.spare_room",
+    "friendly_name": "Spare room light",
+    "state": "on",
+    "last_changed": "2026-10-31T01:58:20Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "off",
+    "last_changed": "2026-10-31T01:59:35Z"
+  },
+  {
+    "entity_id": "sensor.spare_room_temperature",
+    "friendly_name": "Spare room temperature",
+    "state": "19.3",
+    "last_changed": "2026-10-31T02:00:00Z"
+  },
+  {
+    "entity_id": "sensor.fridge_temperature",
+    "friendly_name": "Fridge temperature",
+    "state": "3.9",
+    "last_changed": "2026-10-31T02:00:05Z"
+  },
+  {
+    "entity_id": "light.spare_room",
+    "friendly_name": "Spare room light",
+    "state": "off",
+    "last_changed": "2026-10-31T02:01:05Z"
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "friendly_name": "Living room temperature",
+    "state": "19.4",
+    "last_changed": "2026-10-31T02:19:52Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "on",
+    "last_changed": "2026-10-31T02:29:09Z"
+  },
+  {
+    "entity_id": "sensor.spare_room_temperature",
+    "friendly_name": "Spare room temperature",
+    "state": "19.3",
+    "last_changed": "2026-10-31T02:30:00Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "off",
+    "last_changed": "2026-10-31T02:41:14Z"
+  },
+  {
+    "entity_id": "sensor.fridge_temperature",
+    "friendly_name": "Fridge temperature",
+    "state": "4.0",
+    "last_changed": "2026-10-31T02:41:44Z"
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "friendly_name": "Living room temperature",
+    "state": "19.3",
+    "last_changed": "2026-10-31T02:41:57Z"
+  },
+  {
+    "entity_id": "binary_sensor.hallway_motion",
+    "friendly_name": "Hallway motion",
+    "state": "on",
+    "last_changed": "2026-10-31T02:47:10Z"
+  },
+  {
+    "entity_id": "binary_sensor.hallway_motion",
+    "friendly_name": "Hallway motion",
+    "state": "off",
+    "last_changed": "2026-10-31T02:47:42Z"
+  },
+  {
+    "entity_id": "sensor.spare_room_temperature",
+    "friendly_name": "Spare room temperature",
+    "state": "19.2",
+    "last_changed": "2026-10-31T02:51:00Z"
+  },
+  {
+    "entity_id": "sensor.spare_room_temperature",
+    "friendly_name": "Spare room temperature",
+    "state": "17.9",
+    "last_changed": "2026-10-31T02:54:00Z"
+  },
+  {
+    "entity_id": "sensor.spare_room_temperature",
+    "friendly_name": "Spare room temperature",
+    "state": "16.2",
+    "last_changed": "2026-10-31T02:57:00Z"
+  },
+  {
+    "entity_id": "sensor.spare_room_temperature",
+    "friendly_name": "Spare room temperature",
+    "state": "14.5",
+    "last_changed": "2026-10-31T03:00:00Z"
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "friendly_name": "Living room temperature",
+    "state": "19.2",
+    "last_changed": "2026-10-31T03:01:26Z"
+  },
+  {
+    "entity_id": "sensor.spare_room_temperature",
+    "friendly_name": "Spare room temperature",
+    "state": "13.0",
+    "last_changed": "2026-10-31T03:01:30Z"
+  },
+  {
+    "entity_id": "sensor.spare_room_temperature",
+    "friendly_name": "Spare room temperature",
+    "state": "13.0",
+    "last_changed": "2026-10-31T03:01:30Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "on",
+    "last_changed": "2026-10-31T03:11:47Z"
+  },
+  {
+    "entity_id": "binary_sensor.back_door",
+    "friendly_name": "Back door",
+    "state": "on",
+    "last_changed": "2026-10-31T03:12:05Z"
+  },
+  {
+    "entity_id": "binary_sensor.back_door",
+    "friendly_name": "Back door",
+    "state": "off",
+    "last_changed": "2026-10-31T03:12:58Z"
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "friendly_name": "Living room temperature",
+    "state": "19.1",
+    "last_changed": "2026-10-31T03:18:21Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "off",
+    "last_changed": "2026-10-31T03:23:49Z"
+  },
+  {
+    "entity_id": "sensor.fridge_temperature",
+    "friendly_name": "Fridge temperature",
+    "state": "3.8",
+    "last_changed": "2026-10-31T03:24:19Z"
+  },
+  {
+    "entity_id": "sensor.spare_room_temperature",
+    "friendly_name": "Spare room temperature",
+    "state": "13.1",
+    "last_changed": "2026-10-31T03:30:00Z"
+  },
+  {
+    "entity_id": "climate.heating",
+    "friendly_name": "Heating",
+    "state": "heat",
+    "last_changed": "2026-10-31T03:45:25Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "on",
+    "last_changed": "2026-10-31T03:57:25Z"
+  },
+  {
+    "entity_id": "sensor.spare_room_temperature",
+    "friendly_name": "Spare room temperature",
+    "state": "13.6",
+    "last_changed": "2026-10-31T04:00:00Z"
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "friendly_name": "Living room temperature",
+    "state": "19.2",
+    "last_changed": "2026-10-31T04:02:55Z"
+  },
+  {
+    "entity_id": "climate.heating",
+    "friendly_name": "Heating",
+    "state": "idle",
+    "last_changed": "2026-10-31T04:06:44Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "off",
+    "last_changed": "2026-10-31T04:08:44Z"
+  },
+  {
+    "entity_id": "sensor.fridge_temperature",
+    "friendly_name": "Fridge temperature",
+    "state": "3.6",
+    "last_changed": "2026-10-31T04:09:14Z"
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "friendly_name": "Living room temperature",
+    "state": "19.1",
+    "last_changed": "2026-10-31T04:21:07Z"
+  },
+  {
+    "entity_id": "sensor.spare_room_temperature",
+    "friendly_name": "Spare room temperature",
+    "state": "14.2",
+    "last_changed": "2026-10-31T04:30:00Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "on",
+    "last_changed": "2026-10-31T04:41:07Z"
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "friendly_name": "Living room temperature",
+    "state": "19.0",
+    "last_changed": "2026-10-31T04:41:58Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "off",
+    "last_changed": "2026-10-31T04:54:30Z"
+  },
+  {
+    "entity_id": "sensor.fridge_temperature",
+    "friendly_name": "Fridge temperature",
+    "state": "3.6",
+    "last_changed": "2026-10-31T04:55:00Z"
+  },
+  {
+    "entity_id": "sensor.spare_room_temperature",
+    "friendly_name": "Spare room temperature",
+    "state": "15.0",
+    "last_changed": "2026-10-31T05:00:00Z"
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "friendly_name": "Living room temperature",
+    "state": "18.9",
+    "last_changed": "2026-10-31T05:02:35Z"
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "friendly_name": "Living room temperature",
+    "state": "18.8",
+    "last_changed": "2026-10-31T05:19:08Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "on",
+    "last_changed": "2026-10-31T05:20:32Z"
+  },
+  {
+    "entity_id": "climate.heating",
+    "friendly_name": "Heating",
+    "state": "heat",
+    "last_changed": "2026-10-31T05:25:34Z"
+  },
+  {
+    "entity_id": "sensor.spare_room_temperature",
+    "friendly_name": "Spare room temperature",
+    "state": "15.8",
+    "last_changed": "2026-10-31T05:30:00Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "off",
+    "last_changed": "2026-10-31T05:33:51Z"
+  },
+  {
+    "entity_id": "sensor.fridge_temperature",
+    "friendly_name": "Fridge temperature",
+    "state": "3.6",
+    "last_changed": "2026-10-31T05:34:21Z"
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "friendly_name": "Living room temperature",
+    "state": "19.0",
+    "last_changed": "2026-10-31T05:38:24Z"
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "friendly_name": "Living room temperature",
+    "state": "19.1",
+    "last_changed": "2026-10-31T05:57:45Z"
+  },
+  {
+    "entity_id": "sensor.spare_room_temperature",
+    "friendly_name": "Spare room temperature",
+    "state": "16.6",
+    "last_changed": "2026-10-31T06:00:00Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "on",
+    "last_changed": "2026-10-31T06:01:25Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "off",
+    "last_changed": "2026-10-31T06:15:14Z"
+  },
+  {
+    "entity_id": "sensor.fridge_temperature",
+    "friendly_name": "Fridge temperature",
+    "state": "3.7",
+    "last_changed": "2026-10-31T06:15:44Z"
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "friendly_name": "Living room temperature",
+    "state": "19.3",
+    "last_changed": "2026-10-31T06:17:01Z"
+  },
+  {
+    "entity_id": "climate.heating",
+    "friendly_name": "Heating",
+    "state": "idle",
+    "last_changed": "2026-10-31T06:20:51Z"
+  },
+  {
+    "entity_id": "sensor.spare_room_temperature",
+    "friendly_name": "Spare room temperature",
+    "state": "17.3",
+    "last_changed": "2026-10-31T06:30:00Z"
+  },
+  {
+    "entity_id": "sensor.living_room_temperature",
+    "friendly_name": "Living room temperature",
+    "state": "19.2",
+    "last_changed": "2026-10-31T06:41:22Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "on",
+    "last_changed": "2026-10-31T06:41:36Z"
+  },
+  {
+    "entity_id": "binary_sensor.bedroom_motion",
+    "friendly_name": "Bedroom motion",
+    "state": "on",
+    "last_changed": "2026-10-31T06:44:00Z"
+  },
+  {
+    "entity_id": "light.bedroom",
+    "friendly_name": "Bedroom light",
+    "state": "on",
+    "last_changed": "2026-10-31T06:44:10Z"
+  },
+  {
+    "entity_id": "binary_sensor.hallway_motion",
+    "friendly_name": "Hallway motion",
+    "state": "on",
+    "last_changed": "2026-10-31T06:45:00Z"
+  },
+  {
+    "entity_id": "light.hallway",
+    "friendly_name": "Hallway light",
+    "state": "on",
+    "last_changed": "2026-10-31T06:45:05Z"
+  },
+  {
+    "entity_id": "binary_sensor.bathroom_motion",
+    "friendly_name": "Bathroom motion",
+    "state": "on",
+    "last_changed": "2026-10-31T06:46:00Z"
+  },
+  {
+    "entity_id": "light.bathroom",
+    "friendly_name": "Bathroom light",
+    "state": "on",
+    "last_changed": "2026-10-31T06:46:10Z"
+  },
+  {
+    "entity_id": "binary_sensor.hallway_motion",
+    "friendly_name": "Hallway motion",
+    "state": "off",
+    "last_changed": "2026-10-31T06:46:20Z"
+  },
+  {
+    "entity_id": "binary_sensor.kitchen_motion",
+    "friendly_name": "Kitchen motion",
+    "state": "on",
+    "last_changed": "2026-10-31T06:50:00Z"
+  },
+  {
+    "entity_id": "light.kitchen",
+    "friendly_name": "Kitchen light",
+    "state": "on",
+    "last_changed": "2026-10-31T06:50:05Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_door",
+    "friendly_name": "Fridge door",
+    "state": "on",
+    "last_changed": "2026-10-31T06:52:00Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_door",
+    "friendly_name": "Fridge door",
+    "state": "off",
+    "last_changed": "2026-10-31T06:52:20Z"
+  },
+  {
+    "entity_id": "binary_sensor.fridge_compressor",
+    "friendly_name": "Fridge compressor",
+    "state": "off",
+    "last_changed": "2026-10-31T06:54:25Z"
+  },
+  {
+    "entity_id": "sensor.fridge_temperature",
+    "friendly_name": "Fridge temperature",
+    "state": "3.6",
+    "last_changed": "2026-10-31T06:54:55Z"
+  }
+]
