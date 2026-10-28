@@ -6,7 +6,9 @@ Built for the Hacktoberfest Open-Source AI Challenge, Week 4: Ghost in the Machi
 
 The page is a surveyor's plan of the house. The story streams in beside a floor plan and a chart of the whole night, and every time the story names a moment ("01:58") the plan and chart move to it, showing the lamps, doors, movement and temperatures as they were. The four marked events are numbered and linked in time order (the link shows sequence, not a tracked route), and the raw sensor record sits underneath.
 
-The page opens with a **recorded story** that plays straight away, so nothing needs installing to see what the project does. A **live** mode asks your own Ollama model to write a fresh one, and checks that Ollama is there before you press anything. The page keeps three kinds of claim apart and labels them: what the sensors *recorded*, what this project's rules *assume*, and what the *model* interpreted.
+The page opens on the quiet house just after lights out. A guided **walkthrough** takes you through the four marked events one at a time. A panel beside the plan says what changed, what the sensors recorded beforehand, and what the record cannot tell you, all derived from the data. Or explore the night from 18:00.
+
+The page also opens with a **recorded story** that plays straight away, so nothing needs installing to see what the project does. A **live** mode asks your own Ollama model to write a fresh one, and checks that Ollama is there before you press anything. The page keeps three kinds of claim apart and labels them: what the sensors *recorded*, what this project's rules *assume*, and what the *model* interpreted.
 
 ## The principle
 
@@ -163,7 +165,8 @@ src/data/ha-client.ts    stub for the Home Assistant history API (untested)
 src/core/timeline.ts     filter, dedupe, score, pick, describe
 src/core/prompt.ts       system prompt and timeline formatting
 src/core/ollama.ts       streaming Ollama client with typed errors
-src/web/                 React page: house plan, night chart, story, raw record
+src/core/explain.ts      what changed, what came before, what is unknown, per event
+src/web/                 React page: house plan, night chart, event walkthrough, story, raw record
 src/web/fonts/           bundled fonts and their licences
 fixtures/night-01.json   committed fixture, so the demo is reproducible
 ```
@@ -177,7 +180,7 @@ The planted anomalies, all at night while both phones are home:
 
 ## Fonts
 
-The page is set in IM Fell English and IM Fell Double Pica (the narrator and the title) and Martian Mono (the machine's voice), bundled as WOFF2 files in `src/web/fonts/`. They are SIL Open Font License 1.1 fonts, with their licence texts alongside, and were copied from the `@fontsource` packages rather than added as dependencies. Nothing is loaded from a font CDN, so the page makes no third-party requests and the service worker caches the fonts for offline use.
+The page is set in IBM Plex Sans (title, headings and prose) and IBM Plex Mono (timestamps, sensor readings and room labels), bundled as WOFF2 files in `src/web/fonts/`. They are SIL Open Font License 1.1 fonts, with their licence texts alongside, and were copied from the `@fontsource` packages rather than added as dependencies. Nothing is loaded from a font CDN, so the page makes no third-party requests and the service worker caches the fonts for offline use.
 
 ## Licence
 

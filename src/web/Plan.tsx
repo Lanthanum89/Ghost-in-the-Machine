@@ -7,6 +7,9 @@ interface Props {
   time: number;
   marks: Mark[];
   legs: Leg[];
+  /** Number of the selected mark, if any. It keeps a persistent highlight. */
+  selected: number | null;
+  onSelect: (n: number) => void;
 }
 
 const RECENT_MOTION_MS = 4 * 60_000;
@@ -41,7 +44,7 @@ function summarise(state: HouseState, time: number, marks: Mark[]): string {
   return bits.join(' ');
 }
 
-export function Plan({ state, time, marks, legs }: Props) {
+export function Plan({ state, time, marks, legs, selected, onSelect }: Props) {
   const shownMarks = marks.filter((m) => m.time <= time);
   const current = shownMarks[shownMarks.length - 1];
   const spareTemp = state.temperatures.spare_room;
@@ -51,7 +54,7 @@ export function Plan({ state, time, marks, legs }: Props) {
   const frontDoorOpen = state.doors.front_door === true;
 
   return (
-    <svg viewBox={`0 0 ${VIEW.w} ${VIEW.h}`} role="img" aria-label={summarise(state, time, marks)} className="block h-auto w-full">
+    <svg viewBox={`0 0 ${VIEW.w} ${VIEW.h}`} role="group" aria-label={summarise(state, time, marks)} className="block h-auto w-full">
       <defs>
         <radialGradient id="lamp">
           <stop offset="0" stopColor="var(--color-lamp)" stopOpacity="0.55" />
@@ -131,16 +134,16 @@ export function Plan({ state, time, marks, legs }: Props) {
       </g>
 
       {/* Labels */}
-      <g className="font-mono" fontSize="12" letterSpacing="0.02em">
+      <g className="font-mono" fontSize="13.5">
         {Object.entries(ROOMS).map(([id, r]) => (
-          <text key={id} x={r.x + 10} y={r.y + 20} className="fill-muted">
+          <text key={id} x={r.x + 10} y={r.y + 20} className="fill-line">
             {r.label}
           </text>
         ))}
-        <text x="522" y="85" className="fill-muted" fontSize="10.5">
+        <text x="522" y="85" className="fill-muted" fontSize="12">
           fridge
         </text>
-        <text x="590" y="140" className="fill-muted" fontSize="11">
+        <text x="590" y="140" className="fill-line" fontSize="12">
           back door
         </text>
         <text x="8" y="239" className="fill-muted" fontSize="11" textAnchor="end">
@@ -150,11 +153,11 @@ export function Plan({ state, time, marks, legs }: Props) {
 
       {spareTemp !== undefined && (
         <g className="font-mono">
-          <text x="330" y="314" fontSize="28" fontWeight="500" className={spareCold ? 'fill-red' : 'fill-line'}>
+          <text x="330" y="316" fontSize="30" fontWeight="500" className={spareCold ? 'fill-red' : 'fill-line'}>
             {spareTemp.toFixed(1)}°
           </text>
           {spareChange !== undefined && Math.abs(spareChange) >= 0.5 && (
-            <text x="330" y="334" fontSize="12" className={spareCold ? 'fill-red' : 'fill-muted'}>
+            <text x="330" y="336" fontSize="13.5" className={spareCold ? 'fill-red' : 'fill-line'}>
               {spareChange > 0 ? '+' : '−'}
               {Math.abs(spareChange).toFixed(1)}° in 1 h
             </text>
@@ -185,15 +188,33 @@ export function Plan({ state, time, marks, legs }: Props) {
             <path key={l.time} d={toPath(l.points)} strokeDasharray="3 6" strokeWidth="1.5" strokeOpacity="0.75" className="leg" markerEnd="url(#arrow)" />
           ))}
       </g>
-      {shownMarks.map((m) => (
-        <g key={m.n} className="font-mono">
-          {m === current && <circle cx={m.at[0]} cy={m.at[1]} r="15" className="ring fill-none stroke-red" strokeWidth="1.5" />}
-          <circle cx={m.at[0]} cy={m.at[1]} r="11" className="fill-ground stroke-red" strokeWidth="1.8" />
-          <text x={m.at[0]} y={m.at[1] + 4} textAnchor="middle" fontSize="12" fontWeight="500" className="fill-red">
-            {m.n}
-          </text>
-        </g>
-      ))}
+      {shownMarks.map((m) => {
+        const isSelected = m.n === selected;
+        return (
+          <g
+            key={m.n}
+            className="cursor-pointer font-mono"
+            role="button"
+            tabIndex={0}
+            aria-pressed={isSelected}
+            aria-label={`Event ${m.n} at ${formatClock(m.time)}: ${m.text}`}
+            onClick={() => onSelect(m.n)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                onSelect(m.n);
+              }
+            }}
+          >
+            {m === current && <circle cx={m.at[0]} cy={m.at[1]} r="15" className="ring fill-none stroke-red" strokeWidth="1.5" />}
+            {isSelected && <circle cx={m.at[0]} cy={m.at[1]} r="19" className="fill-red/25 stroke-red" strokeWidth="2.5" />}
+            <circle cx={m.at[0]} cy={m.at[1]} r="12" className="fill-ground stroke-red" strokeWidth={isSelected ? 2.6 : 1.8} />
+            <text x={m.at[0]} y={m.at[1] + 4.5} textAnchor="middle" fontSize="13" fontWeight="500" className="fill-red">
+              {m.n}
+            </text>
+          </g>
+        );
+      })}
       </g>
     </svg>
   );

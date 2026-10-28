@@ -2,46 +2,39 @@
 
 /* Fonts are bundled (SIL Open Font License, see src/web/fonts), so the page makes no third-party requests and works offline. */
 @font-face {
-  font-family: 'IM Fell English';
+  font-family: 'IBM Plex Sans';
   font-weight: 400;
   font-style: normal;
   font-display: swap;
-  src: url('./fonts/im-fell-english-latin-400-normal.woff2') format('woff2');
+  src: url('./fonts/ibm-plex-sans-latin-400-normal.woff2') format('woff2');
 }
 @font-face {
-  font-family: 'IM Fell English';
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-  src: url('./fonts/im-fell-english-latin-400-italic.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'IM Fell Double Pica';
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-  src: url('./fonts/im-fell-double-pica-latin-400-normal.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'IM Fell Double Pica';
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-  src: url('./fonts/im-fell-double-pica-latin-400-italic.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Martian Mono';
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-  src: url('./fonts/martian-mono-latin-400-normal.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Martian Mono';
+  font-family: 'IBM Plex Sans';
   font-weight: 500;
   font-style: normal;
   font-display: swap;
-  src: url('./fonts/martian-mono-latin-500-normal.woff2') format('woff2');
+  src: url('./fonts/ibm-plex-sans-latin-500-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url('./fonts/ibm-plex-sans-latin-600-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('./fonts/ibm-plex-mono-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url('./fonts/ibm-plex-mono-latin-500-normal.woff2') format('woff2');
 }
 
 @theme {
@@ -52,9 +45,8 @@
   --color-red: #ff5a3c;
   --color-lamp: #f2dc8f;
   --color-slip: #ece4cf;
-  --font-fell: 'IM Fell English', 'Iowan Old Style', Georgia, serif;
-  --font-pica: 'IM Fell Double Pica', 'IM Fell English', Georgia, serif;
-  --font-mono: 'Martian Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  --font-sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
 }
 
 html {
@@ -67,9 +59,9 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: var(--font-fell);
-  font-size: 1.125rem;
-  line-height: 1.55;
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.6;
   background-color: var(--color-ground);
   background-image:
     radial-gradient(ellipse 80% 45% at 50% -5%, rgb(207 227 234 / 0.09), transparent 70%),
@@ -126,7 +118,7 @@ body {
 /* Says which kind of claim a panel makes: recorded, rule-based or model. */
 .tag {
   display: inline-block;
-  font: 500 0.74rem / 1 var(--font-mono);
+  font: 500 0.78rem / 1 var(--font-mono);
   color: var(--color-line);
   border: 1px solid rgb(207 227 234 / 0.5);
   padding: 0.3rem 0.45rem 0.25rem;
@@ -143,11 +135,16 @@ body {
 @media (min-width: 1024px) {
   .layout {
     grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+    /* The story keeps its natural height and the record takes the rest, so the tall left column leaves no gap between them. */
+    grid-template-rows: max-content 1fr;
     column-gap: 3.25rem;
     grid-template-areas:
       'instrument story'
       'instrument log';
   }
+}
+/* Stays in view while you read the record, but only where the screen is tall enough to hold it. */
+@media (min-width: 1024px) and (min-height: 900px) {
   .area-instrument {
     position: sticky;
     top: 1.25rem;
@@ -165,11 +162,12 @@ body {
 .area-log {
   grid-area: log;
   min-width: 0;
+  align-self: start;
 }
 
 .story {
-  font-size: 1.5rem;
-  line-height: 1.58;
+  font-size: 1.125rem;
+  line-height: 1.7;
   color: var(--color-headline);
 }
 .story p {
@@ -179,8 +177,7 @@ body {
 
 /* A time in the story. Pressing it moves the chart to that moment. */
 .mention {
-  font: 500 0.66em / 1 var(--font-mono);
-  letter-spacing: 0.02em;
+  font: 500 0.74em / 1 var(--font-mono);
   padding: 0.28em 0.38em 0.22em;
   margin: 0 0.04em;
   color: var(--color-red);

@@ -15,7 +15,7 @@ export function Story({ text, streaming, start, end, onJump }: Props) {
   let offset = 0;
 
   if (paragraphs.length === 0) {
-    return streaming ? <p className="italic text-muted">The correspondent is composing&hellip;</p> : null;
+    return streaming ? <p className="text-line">The model is writing&hellip;</p> : null;
   }
 
   return (

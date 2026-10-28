@@ -4,7 +4,7 @@
 
 Ghost in the House takes a night of smart home sensor events, picks the strangest with plain code, and asks an open-weight model running on your own machine to explain them as a short ghost story.
 
-The page is a surveyor's plan of a quiet house. A floor plan and a chart of the whole night sit beside the story. Every time the story names a moment ("01:58"), the plan and chart jump to it and show the house as the sensors recorded it: lamps, open doors, movement, the spare room turning cold. The raw record sits underneath, so you can check the story against the evidence line by line.
+The page is a surveyor's plan of a quiet house. A floor plan and a chart of the whole night sit beside the story. Every time the story names a moment ("01:58"), the plan and chart jump to it and show the house as the sensors recorded it: lamps, open doors, movement, the spare room turning cold. The raw record sits underneath, so you can check the story against the evidence line by line. A guided walkthrough takes first-time visitors through the four events, and a panel beside the plan says what changed, what the sensors recorded beforehand, and what remains unknown, all derived from the data.
 
 The night is fictional sample data shaped like Home Assistant history, with four events nothing explains: a spare room light with no motion recorded in the room, hallway movement while every tracked phone is home, a 6 degree drop in ten minutes, and the back door opening with no motion recorded before it.
 
@@ -29,7 +29,7 @@ Plain TypeScript filters the night's events, scores them with six explainable ru
 - **Model:** a small open-weight instruct model through Ollama, `llama3.1:8b` by default and one setting to change. Low-ish temperature, capped length, and a system prompt fixing a dry, understated British voice that tells it to say "no motion was recorded" rather than claim nobody was there.
 - **Inference:** Ollama's streaming `/api/chat`, called straight from the browser. No cloud AI calls anywhere. Live mode checks Ollama is reachable before you press anything.
 - **The plan and chart:** a replay of the sensor history, computed in code. A small parser finds times like `01:58` in the story as it streams and moves the chart to the matching moment. The model decides nothing visual.
-- **App:** TypeScript, React, Vite, Tailwind and Vitest, as an installable PWA. Fonts are bundled open-licensed files, so nothing loads from a CDN.
+- **App:** TypeScript, React, Vite, Tailwind and Vitest, as an installable PWA. IBM Plex Sans and Mono are bundled open-licensed files, so nothing loads from a CDN.
 - **Home Assistant:** `src/data/ha-client.ts` is a stub for the real history API. It has never been run against a real Home Assistant, and the README and code both say so.
 
 ## Why Does Open Innovation Matter?

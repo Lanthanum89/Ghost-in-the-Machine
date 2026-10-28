@@ -15,7 +15,7 @@ interface Props {
 
 const W = 640;
 const H = 222;
-const X0 = 66;
+const X0 = 74;
 const X1 = 628;
 const ROWS = { door: 34, motion: 62, light: 90 } as const;
 const T_TOP = 122;
@@ -105,12 +105,12 @@ export function Strip({ events, history, selected, start, end, time, onTime }: P
       </defs>
 
       <rect x={x(nightStart.getTime())} y="18" width={x(nightEnd) - x(nightStart.getTime())} height={AXIS - 18} fill="url(#night)" />
-      <text x={x(nightStart.getTime()) + 6} y="29" className="fill-muted font-mono" fontSize="10">
+      <text x={x(nightStart.getTime()) + 6} y="29" className="fill-line font-mono" fontSize="12">
         night
       </text>
 
       {/* Row rails and labels */}
-      <g className="font-mono" fontSize="10.5">
+      <g className="font-mono" fontSize="12">
         {(
           [
             ['doors', ROWS.door],
@@ -119,13 +119,13 @@ export function Strip({ events, history, selected, start, end, time, onTime }: P
           ] as const
         ).map(([name, y]) => (
           <g key={name}>
-            <text x="0" y={y + 4} className="fill-muted">
+            <text x="0" y={y + 4} className="fill-line">
               {name}
             </text>
             <line x1={X0} x2={X1} y1={y} y2={y} className="stroke-line/20" strokeWidth="1" />
           </g>
         ))}
-        <text x="0" y={T_TOP - 8} className="fill-muted">
+        <text x="0" y={T_TOP - 8} className="fill-line">
           spare room, °C
         </text>
       </g>
@@ -143,7 +143,7 @@ export function Strip({ events, history, selected, start, end, time, onTime }: P
             return (
               <g key={key}>
                 <line x1={px} x2={px} y1={row - 12} y2={row + 12} className="stroke-red" strokeWidth="2.2" />
-                <text x={px} y={row - 16} textAnchor="middle" fontSize="10" className="fill-red font-mono" fontWeight="500">
+                <text x={px} y={row - 16} textAnchor="middle" fontSize="11.5" className="fill-red font-mono" fontWeight="500">
                   {s.score}
                 </text>
               </g>
@@ -164,11 +164,11 @@ export function Strip({ events, history, selected, start, end, time, onTime }: P
       </g>
 
       {/* Spare room temperature */}
-      <g className="font-mono" fontSize="10">
+      <g className="font-mono" fontSize="11.5">
         {[14, 17, 20].map((v) => (
           <g key={v}>
             <line x1={X0} x2={X1} y1={yTemp(v)} y2={yTemp(v)} className="stroke-line/12" strokeDasharray="2 5" />
-            <text x={X0 - 6} y={yTemp(v) + 3.5} textAnchor="end" className="fill-muted">
+            <text x={X0 - 6} y={yTemp(v) + 3.5} textAnchor="end" className="fill-line">
               {v}
             </text>
           </g>
@@ -178,12 +178,12 @@ export function Strip({ events, history, selected, start, end, time, onTime }: P
       {plunge && <path d={plunge} className="fill-none stroke-red" strokeWidth="2.6" strokeLinejoin="round" strokeLinecap="round" />}
 
       {/* Hour axis */}
-      <g className="font-mono" fontSize="10">
+      <g className="font-mono" fontSize="11.5">
         <line x1={X0} x2={X1} y1={AXIS} y2={AXIS} className="stroke-line/50" />
         {hours.map((t) => (
           <g key={t}>
             <line x1={x(t)} x2={x(t)} y1={AXIS} y2={AXIS + 5} className="stroke-line/50" />
-            <text x={x(t)} y={AXIS + 18} textAnchor="middle" className="fill-muted">
+            <text x={x(t)} y={AXIS + 18} textAnchor="middle" className="fill-line">
               {String(new Date(t).getUTCHours()).padStart(2, '0')}
             </text>
           </g>

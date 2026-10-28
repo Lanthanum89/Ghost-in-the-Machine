@@ -30,14 +30,14 @@ export function Log({ events, selected, time, onlySelected, onToggleOnlySelected
   return (
     <section aria-labelledby="record-heading" className="min-w-0">
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-        <h2 id="record-heading" className="font-pica text-[2rem] italic leading-none text-headline">
+        <h2 id="record-heading" className="text-[1.6rem] font-semibold leading-tight tracking-tight text-headline">
           The raw record
         </h2>
         <span className="tag">recorded</span>
       </div>
-      <p className="mt-2 text-[1.05rem] leading-snug text-line">
-        {events.length} sensor changes survived filtering. Six rules picked {selected.size} of them to show the model. It never
-        saw the rest, and which {selected.size} were chosen already shapes the story it tells.
+      <p className="mt-2 text-[1.05rem] leading-normal text-line">
+        {events.length} sensor changes were recorded and survived filtering. Six rules picked {selected.size} of them to show
+        the model. It never saw the rest, and which {selected.size} were chosen already shapes the story it tells.
       </p>
 
       <details className="mt-3 border-y border-line/25 py-2 text-[1.02rem]">
@@ -57,8 +57,10 @@ export function Log({ events, selected, time, onlySelected, onToggleOnlySelected
           ))}
         </ul>
         <p className="mt-3 text-line/90">
-          Events that score above zero are ranked and the top 20 are kept. These are the project&rsquo;s own assumptions about
-          what looks unusual, not measurements.
+          A <strong className="font-medium text-headline">rule score</strong> is the sum of these points. It only ranks events
+          for this page. It is not a probability, a confidence or a measure of how serious something is. Events that score
+          above zero are ranked and the top 20 are kept. The rules are the project&rsquo;s own assumptions about what looks
+          unusual, not measurements.
         </p>
       </details>
 
@@ -69,15 +71,20 @@ export function Log({ events, selected, time, onlySelected, onToggleOnlySelected
           onChange={(e) => onToggleOnlySelected(e.target.checked)}
           className="h-4 w-4 accent-red"
         />
-        show only the {selected.size} the model saw
+        show only the {selected.size} shown to the model
       </label>
 
+      <div className="mt-3 grid grid-cols-[3.4rem_minmax(0,1fr)_5rem] gap-x-3 border-t border-line/40 px-2 pt-2 font-mono text-[0.78rem] text-line">
+        <span>time</span>
+        <span>change the sensors recorded</span>
+        <span className="text-right">rule score</span>
+      </div>
       <div
         ref={region}
         tabIndex={0}
         role="region"
         aria-label="Sensor record, scrollable"
-        className="relative mt-3 max-h-[26rem] overflow-y-auto border-y border-line/40"
+        className="relative mt-1 max-h-[26rem] overflow-y-auto border-y border-line/40"
       >
         <ol className="font-mono text-[0.84rem] leading-snug">
           {shown.map((s) => {
@@ -94,7 +101,7 @@ export function Log({ events, selected, time, onlySelected, onToggleOnlySelected
                 <button
                   type="button"
                   onClick={() => onTime(s.time)}
-                  className="grid w-full grid-cols-[3.4rem_minmax(0,1fr)_2rem] items-baseline gap-x-3 px-2 py-2 text-left"
+                  className="grid w-full grid-cols-[3.4rem_minmax(0,1fr)_5rem] items-baseline gap-x-3 px-2 py-2 text-left"
                 >
                   <time dateTime={s.event.last_changed} className={isNow ? 'text-red' : 'text-line/80'}>
                     {formatClock(s.time)}
@@ -110,10 +117,10 @@ export function Log({ events, selected, time, onlySelected, onToggleOnlySelected
                   </span>
                 </button>
                 {picked && top && (
-                  <details key={isNow ? 'now' : 'rest'} open={isNow} className="mb-2 ml-[4.4rem] mr-2 font-fell text-[1.02rem] leading-snug text-line">
+                  <details key={isNow ? 'now' : 'rest'} open={isNow} className="mb-2 ml-[4.4rem] mr-2 text-[0.98rem] leading-snug text-line">
                     <summary className="cursor-pointer">
                       {top.text}
-                      <span className="text-line/70"> ({sign(top.points)}{Math.abs(top.points)}). All {s.reasons.length} reasons</span>
+                      <span className="text-line/80"> ({sign(top.points)}{Math.abs(top.points)}). All {s.reasons.length} reasons</span>
                     </summary>
                     <ul className="mt-1 space-y-0.5 pl-1">
                       {s.reasons.map((r) => (
