@@ -127,3 +127,22 @@ export async function* streamChat(
     reader.releaseLock();
   }
 }
+
+export type Probe =
+  | { status: 'ready'; models: string[] }
+  | { status: 'missing-model'; models: string[] }
+  | { status: 'down' };
+
+/** Asks Ollama what it has, before anyone presses a button that depends on it. */
+export async function probeOllama(config: OllamaConfig, fetchImpl: typeof fetch = fetch, timeoutMs = 2500): Promise<Probe> {
+  try {
+    const response = await fetchImpl(`${config.host}/api/tags`, { signal: AbortSignal.timeout(timeoutMs) });
+    if (!response.ok) return { status: 'down' };
+    const body = (await response.json()) as { models?: Array<{ name?: string }> };
+    const models = (body.models ?? []).map((m) => m.name ?? '').filter(Boolean);
+    const has = models.some((name) => name === config.model || name === `${config.model}:latest`);
+    return has ? { status: 'ready', models } : { status: 'missing-model', models };
+  } catch {
+    return { status: 'down' };
+  }
+}

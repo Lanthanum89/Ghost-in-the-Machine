@@ -95,7 +95,7 @@ export const ANOMALIES: Anomaly[] = [
   },
   {
     id: 'hallway-motion',
-    description: 'Hallway motion while every phone is home and the house is asleep',
+    description: 'Hallway motion at night while every tracked phone is home',
     event: e('binary_sensor.hallway_motion', 'on', '02:47:10'),
   },
   {
