@@ -1,50 +1,149 @@
 @import 'tailwindcss';
 
+/* Fonts are bundled (SIL Open Font License, see src/web/fonts), so the page makes no third-party requests and works offline. */
+@font-face {
+  font-family: 'Playfair Display';
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+  src: url('./fonts/playfair-display-latin-900-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url('./fonts/playfair-display-latin-700-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+  src: url('./fonts/playfair-display-latin-500-italic.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Source Serif 4';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('./fonts/source-serif-4-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Source Serif 4';
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url('./fonts/source-serif-4-latin-600-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Source Serif 4';
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+  src: url('./fonts/source-serif-4-latin-400-italic.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'UnifrakturCook';
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url('./fonts/unifrakturcook-latin-700-normal.woff2') format('woff2');
+}
+
 @theme {
-  --color-ink: #0a0c11;
-  --color-panel: #11141b;
-  --color-edge: #252b39;
-  --color-text: #e8e4da;
-  --color-muted: #a3acbb;
-  --color-amber: #f0c36b;
-  --color-ghost: #8fe0cf;
+  --color-ink: #0b0a0c;
+  --color-paper: #e9e2d3;
+  --color-headline: #f6f0e1;
+  --color-muted: #a79f90;
+  --color-ember: #f08a24;
+  --color-ember-soft: #f0a95b;
+  --color-spectre: #9fd8c4;
   --color-danger: #ff9b8f;
-  --font-serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  --color-rule: rgb(233 226 211 / 0.22);
+  --color-rule-strong: rgb(233 226 211 / 0.6);
+  --font-display: 'Playfair Display', 'Iowan Old Style', Georgia, serif;
+  --font-text: 'Source Serif 4', 'Iowan Old Style', Georgia, serif;
+  --font-fraktur: 'UnifrakturCook', 'Old English Text MT', Georgia, serif;
 }
 
 html {
   background: var(--color-ink);
-  color: var(--color-text);
+  color: var(--color-paper);
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
-  background:
-    radial-gradient(ellipse at 50% -10%, rgb(143 224 207 / 0.07), transparent 55%),
-    var(--color-ink);
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-text);
+  font-size: 1.0625rem;
   line-height: 1.6;
+  background:
+    radial-gradient(ellipse 70% 40% at 50% -6%, rgb(240 138 36 / 0.11), transparent 70%),
+    radial-gradient(ellipse 100% 60% at 50% 120%, rgb(159 216 196 / 0.05), transparent 70%),
+    var(--color-ink);
+}
+
+/* Newsprint grain, very faint. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+#root {
+  position: relative;
+  z-index: 1;
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-amber);
-  outline-offset: 2px;
+  outline: 2px solid var(--color-ember);
+  outline-offset: 3px;
 }
 
-.caret::after {
-  content: '';
+::selection {
+  background: var(--color-ember);
+  color: var(--color-ink);
+}
+
+.kicker {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.story p {
+  margin: 0 0 1.1em;
+  hyphens: auto;
+}
+.story p:first-child::first-letter {
+  float: left;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 5.4rem;
+  line-height: 0.8;
+  padding: 0.4rem 0.7rem 0 0;
+  color: var(--color-ember);
+}
+
+.caret {
   display: inline-block;
   width: 0.5ch;
-  height: 1.1em;
-  margin-left: 2px;
+  height: 1.05em;
+  margin-left: 3px;
   vertical-align: text-bottom;
-  background: var(--color-ghost);
+  background: var(--color-ember);
   animation: blink 1.1s steps(2, start) infinite;
 }
 
-.fade-in {
-  animation: fade-in 0.6s ease-out both;
+.rise {
+  animation: rise 0.7s ease-out both;
 }
 
 @keyframes blink {
@@ -53,20 +152,19 @@ body {
   }
 }
 
-@keyframes fade-in {
+@keyframes rise {
   from {
     opacity: 0;
+    transform: translateY(6px);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .caret::after {
-    animation: none;
-  }
-  .fade-in {
-    animation: none;
-  }
   html {
     scroll-behavior: auto;
+  }
+  .caret,
+  .rise {
+    animation: none;
   }
 }

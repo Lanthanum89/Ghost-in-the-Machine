@@ -146,7 +146,8 @@ src/data/ha-client.ts    stub for the Home Assistant history API (untested)
 src/core/timeline.ts     filter, dedupe, score, pick, describe
 src/core/prompt.ts       system prompt and timeline formatting
 src/core/ollama.ts       streaming Ollama client with typed errors
-src/web/                 React page
+src/web/                 React page (editorial layout, ledger-style timeline)
+src/web/fonts/           bundled fonts and their licences
 fixtures/night-01.json   committed fixture, so the demo is reproducible
 ```
 
@@ -157,6 +158,10 @@ The planted anomalies, all at night while both phones are home:
 - 03:01 the spare room temperature has fallen 6 degrees in 10 minutes
 - 03:12 the back door opens, with no movement beforehand
 
+## Fonts
+
+The page is set in Playfair Display, Source Serif 4 and UnifrakturCook, bundled as WOFF2 files in `src/web/fonts/`. They are SIL Open Font License 1.1 fonts, with their licence texts alongside, and were copied from the `@fontsource` packages rather than added as dependencies. Nothing is loaded from a font CDN, so the page makes no third-party requests and the service worker caches the fonts for offline use.
+
 ## Licence
 
-MIT. See [LICENSE](LICENSE).
+MIT for the code. See [LICENSE](LICENSE). The bundled fonts keep their own licences.
