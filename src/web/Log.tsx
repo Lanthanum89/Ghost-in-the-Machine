@@ -32,7 +32,7 @@ export function Log({ events, total, selected, time, onlySelected, onToggleOnlyS
   return (
     <section aria-labelledby="record-heading" className="min-w-0">
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-        <h2 id="record-heading" className="text-[1.6rem] font-semibold leading-tight tracking-tight text-headline">
+        <h2 id="record-heading" className="font-pica text-[2rem] italic leading-none text-headline">
           The raw record
         </h2>
         <span className="tag">recorded</span>
@@ -53,14 +53,14 @@ export function Log({ events, total, selected, time, onlySelected, onToggleOnlyS
                 {Math.abs(POINTS[rule])}
               </span>
               <span>
-                <strong className="font-normal text-headline">{RULE_TEXT[rule].title}.</strong>{' '}
+                <strong className="font-bold text-headline">{RULE_TEXT[rule].title}.</strong>{' '}
                 <span className="text-line/90">{RULE_TEXT[rule].text}</span>
               </span>
             </li>
           ))}
         </ul>
         <p className="mt-3 text-line/90">
-          A <strong className="font-medium text-headline">rule score</strong> is the sum of these points. It only ranks events
+          A <strong className="font-bold text-headline">rule score</strong> is the sum of these points. It only ranks events
           for this page. It is not a probability, a confidence or a measure of how serious something is. Events that score
           above zero are ranked and the top 20 are kept. The rules are the project&rsquo;s own assumptions about what looks
           unusual, not measurements.
@@ -120,7 +120,7 @@ export function Log({ events, total, selected, time, onlySelected, onToggleOnlyS
                   </span>
                 </button>
                 {picked && top && (
-                  <details key={isNow ? 'now' : 'rest'} open={isNow} className="mb-2 ml-[4.4rem] mr-2 text-[0.98rem] leading-snug text-line">
+                  <details key={isNow ? 'now' : 'rest'} open={isNow} className="mb-2 ml-[4.4rem] mr-2 font-sans text-[0.98rem] leading-snug text-line">
                     <summary className="cursor-pointer">
                       {top.text}
                       <span className="text-line/80"> ({sign(top.points)}{Math.abs(top.points)}). All {s.reasons.length} reasons</span>

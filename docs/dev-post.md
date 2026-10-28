@@ -29,7 +29,7 @@ Plain TypeScript filters the night's events, scores them with six explainable ru
 - **Model:** a small open-weight instruct model through Ollama, `llama3.1:8b` by default and one setting to change. Low-ish temperature, capped length, and a system prompt fixing a dry, understated British voice that tells it to say "no motion was recorded" rather than claim nobody was there.
 - **Inference:** Ollama's streaming `/api/chat`, called straight from the browser. No cloud AI calls anywhere. Live mode checks Ollama is reachable before you press anything.
 - **The plan and chart:** a replay of the sensor history, computed in code. A small parser finds times like `01:58` in the story as it streams and moves the chart to the matching moment. The model decides nothing visual.
-- **App:** TypeScript, React, Vite, Tailwind and Vitest, as an installable PWA. IBM Plex Sans and Mono are bundled open-licensed files, so nothing loads from a CDN.
+- **App:** TypeScript, React, Vite, Tailwind and Vitest, as an installable PWA. The type is IM Fell Double Pica for titles, Atkinson Hyperlegible for reading and IBM Plex Mono for data, all bundled open-licensed files, so nothing loads from a CDN.
 - **Home Assistant:** `src/data/ha-client.ts` is a stub for the real history API. It has never been run against a real Home Assistant, and the README and code both say so.
 
 ## Why Does Open Innovation Matter?

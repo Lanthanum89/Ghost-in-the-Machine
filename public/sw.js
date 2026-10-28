@@ -4,7 +4,7 @@
 // Cache storage is shared by every site on this origin (for example other projects on the same
 // GitHub Pages account), so only caches with this prefix are ever touched.
 const PREFIX = 'ghost-in-the-house-';
-const CACHE = `${PREFIX}v5`;
+const CACHE = `${PREFIX}v6`;
 
 /** Caches the page and everything it links to (the hashed JS and CSS, manifest, icons and fonts). */
 async function precache() {

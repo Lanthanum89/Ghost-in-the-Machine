@@ -2,25 +2,25 @@
 
 /* Fonts are bundled (SIL Open Font License, see src/web/fonts), so the page makes no third-party requests and works offline. */
 @font-face {
-  font-family: 'IBM Plex Sans';
+  font-family: 'Atkinson Hyperlegible';
   font-weight: 400;
   font-style: normal;
   font-display: swap;
-  src: url('./fonts/ibm-plex-sans-latin-400-normal.woff2') format('woff2');
+  src: url('./fonts/atkinson-hyperlegible-latin-400-normal.woff2') format('woff2');
 }
 @font-face {
-  font-family: 'IBM Plex Sans';
-  font-weight: 500;
+  font-family: 'Atkinson Hyperlegible';
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
-  src: url('./fonts/ibm-plex-sans-latin-500-normal.woff2') format('woff2');
+  src: url('./fonts/atkinson-hyperlegible-latin-700-normal.woff2') format('woff2');
 }
 @font-face {
-  font-family: 'IBM Plex Sans';
-  font-weight: 600;
-  font-style: normal;
+  font-family: 'IM Fell Double Pica';
+  font-weight: 400;
+  font-style: italic;
   font-display: swap;
-  src: url('./fonts/ibm-plex-sans-latin-600-normal.woff2') format('woff2');
+  src: url('./fonts/im-fell-double-pica-latin-400-italic.woff2') format('woff2');
 }
 @font-face {
   font-family: 'IBM Plex Mono';
@@ -45,7 +45,8 @@
   --color-red: #ff5a3c;
   --color-lamp: #f2dc8f;
   --color-slip: #ece4cf;
-  --font-sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: 'Atkinson Hyperlegible', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-pica: 'IM Fell Double Pica', 'IM Fell English', Georgia, serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
 }
 

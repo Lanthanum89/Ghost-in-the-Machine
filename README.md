@@ -180,7 +180,7 @@ The planted anomalies, all at night while both phones are home:
 
 ## Fonts
 
-The page is set in IBM Plex Sans (title, headings and prose) and IBM Plex Mono (timestamps, sensor readings and room labels), bundled as WOFF2 files in `src/web/fonts/`. They are SIL Open Font License 1.1 fonts, with their licence texts alongside, and were copied from the `@fontsource` packages rather than added as dependencies. Nothing is loaded from a font CDN, so the page makes no third-party requests and the service worker caches the fonts for offline use.
+The title and headings are set in IM Fell Double Pica italic. Prose is set in Atkinson Hyperlegible, a typeface designed by the Braille Institute for legibility. Timestamps, sensor readings and room labels are set in IBM Plex Mono. All three are bundled as WOFF2 files in `src/web/fonts/` under the SIL Open Font License 1.1, with their licence texts alongside, and were copied from the `@fontsource` packages rather than added as dependencies. Nothing is loaded from a font CDN, so the page makes no third-party requests and the service worker caches the fonts for offline use.
 
 ## Licence
 

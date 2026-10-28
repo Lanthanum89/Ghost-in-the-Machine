@@ -155,7 +155,7 @@ export function App() {
             <p className="font-mono text-[0.8125rem] text-line">
               survey of a night &middot; {NIGHT_LABEL} &middot; <strong className="font-medium text-red">fictional sample data</strong>
             </p>
-            <h1 className="ghosted mt-2 text-[clamp(2.2rem,5.4vw,4rem)] font-medium leading-[1.05] tracking-[-0.02em] text-headline">
+            <h1 className="ghosted mt-2 font-pica text-[clamp(2.7rem,7.4vw,5.7rem)] italic leading-[0.95] tracking-[-0.01em] text-headline">
               <span className="ghost-layer" aria-hidden="true">
                 Ghost in the House
               </span>
@@ -165,9 +165,9 @@ export function App() {
               A quiet house. Four events nothing explains. A language model asked to explain them.
             </p>
             <p className="mt-2 max-w-2xl text-[1.0625rem] leading-normal text-line">
-              The sensors logged <strong className="font-medium text-headline">{READINGS}</strong> readings.{' '}
-              <strong className="font-medium text-headline">{SCORED.length}</strong> changes survive filtering, six rules picked{' '}
-              <strong className="font-medium text-headline">{PICKED.length}</strong> to show the model, and {MARKS.length} of those are marked
+              The sensors logged <strong className="font-bold text-headline">{READINGS}</strong> readings.{' '}
+              <strong className="font-bold text-headline">{SCORED.length}</strong> changes survive filtering, six rules picked{' '}
+              <strong className="font-bold text-headline">{PICKED.length}</strong> to show the model, and {MARKS.length} of those are marked
               in red as unexplained.
             </p>
           </div>
@@ -186,7 +186,7 @@ export function App() {
         <div className="layout mt-8">
           <main className="area-story">
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-              <h2 className="text-[1.6rem] font-semibold leading-tight tracking-tight text-headline">The telling</h2>
+              <h2 className="font-pica text-[2.4rem] italic leading-none text-headline">The telling</h2>
               <span className="tag">AI account</span>
             </div>
             <p className="mt-2 max-w-xl text-[1.0625rem] leading-normal text-line">
@@ -259,7 +259,7 @@ export function App() {
             {error && (
               <aside role="alert" className="mt-8 -rotate-[0.6deg] bg-slip p-5 text-[#1b1710]">
                 <p className="font-mono text-[0.75rem] uppercase tracking-[0.12em] text-[#6b2d1f]">Note to the inspector</p>
-                <h3 className="mt-1 text-[1.35rem] font-semibold leading-tight">{error.title}</h3>
+                <h3 className="mt-1 font-pica text-[1.7rem] italic leading-tight">{error.title}</h3>
                 <p className="mt-1.5 text-[1.0625rem] leading-snug">{error.detail}</p>
                 {error.commands.length > 0 && (
                   <pre className="mt-3 overflow-x-auto bg-[#1b1710] p-3 font-mono text-[0.8125rem] leading-relaxed text-slip">
@@ -322,7 +322,7 @@ export function App() {
 
           <div className="area-instrument space-y-6">
             <section aria-labelledby="start-heading">
-              <h2 id="start-heading" className="text-[1.6rem] font-semibold leading-tight tracking-tight text-headline">
+              <h2 id="start-heading" className="font-pica text-[1.7rem] italic leading-tight text-headline">
                 Four events nothing explains
               </h2>
               <p className="mt-1 text-[1.0625rem] leading-normal text-line">
@@ -371,7 +371,7 @@ export function App() {
               {mark && explanation ? (
                 <>
                   <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                    <h3 id="selected-heading" className="text-[1.15rem] font-semibold leading-tight text-headline">
+                    <h3 id="selected-heading" className="font-pica text-[1.4rem] italic leading-tight text-headline">
                       Event <span className="font-mono text-red">{mark.n}</span> at <span className="font-mono">{formatClock(mark.time)}</span>
                     </h3>
                     <span className="tag">rule score {mark.event.score}, not a probability</span>
@@ -435,7 +435,7 @@ export function App() {
                 </>
               ) : (
                 <>
-                  <h3 id="selected-heading" className="text-[1.15rem] font-semibold leading-tight text-headline">
+                  <h3 id="selected-heading" className="font-pica text-[1.4rem] italic leading-tight text-headline">
                     Select an event
                   </h3>
                   <p className="mt-1 text-[1.0625rem] leading-normal text-line">
@@ -484,7 +484,7 @@ export function App() {
         </div>
 
         <section aria-labelledby="guide-heading" className="mt-12 border-t-4 border-double border-line/50 pt-6">
-          <h2 id="guide-heading" className="text-[1.6rem] font-semibold leading-tight tracking-tight text-headline">
+          <h2 id="guide-heading" className="font-pica text-[1.9rem] italic leading-none text-headline">
             What is fact, what is assumption, what is the model
           </h2>
           <div className="mt-5 grid gap-8 md:grid-cols-3">
@@ -501,7 +501,7 @@ export function App() {
         </section>
 
         <footer className="mt-10 flex flex-wrap justify-between gap-x-8 gap-y-2 border-t border-line/25 pt-4 font-mono text-[0.8125rem] text-line">
-          <p>Set in IBM Plex Sans and Plex Mono. Sensor data is fictional, shaped like Home Assistant history.</p>
+          <p>Set in IM Fell Double Pica, Atkinson Hyperlegible and IBM Plex Mono. Sensor data is fictional, shaped like Home Assistant history.</p>
           <p>
             <a href={REPO_URL} className="underline underline-offset-4 hover:text-headline">
               source on GitHub
