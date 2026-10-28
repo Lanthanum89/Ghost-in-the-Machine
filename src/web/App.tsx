@@ -22,6 +22,9 @@ export function App() {
   }, [picked]);
 
   const [config, setConfig] = useState(loadConfig);
+  // Raw text while editing. It is normalised and saved on blur, so clearing a field or typing
+  // a new address does not get rewritten mid-keystroke.
+  const [draft, setDraft] = useState(() => ({ host: config.host, model: config.model }));
   const [onlySelected, setOnlySelected] = useState(false);
   const [scrollSignal, setScrollSignal] = useState(0);
   const story = useStory();
@@ -29,10 +32,14 @@ export function App() {
   const streaming = story.status === 'streaming';
   const error = story.status === 'error' ? friendlyError(story.error, config, window.location.origin) : null;
 
-  const updateConfig = (patch: Partial<typeof config>) => {
-    const next = resolveConfig({ OLLAMA_HOST: patch.host ?? config.host, OLLAMA_MODEL: patch.model ?? config.model });
+  /** Normalises the draft, saves it if it changed, and returns the config to use. */
+  const commitDraft = () => {
+    const next = resolveConfig({ OLLAMA_HOST: draft.host, OLLAMA_MODEL: draft.model });
+    setDraft({ host: next.host, model: next.model });
+    if (next.host === config.host && next.model === config.model) return config;
     setConfig(next);
     saveConfig(next);
+    return next;
   };
 
   return (
@@ -48,7 +55,7 @@ export function App() {
             type="button"
             onClick={() => {
               setScrollSignal((n) => n + 1);
-              void story.start(buildMessages(picked), config);
+              void story.start(buildMessages(picked), commitDraft());
             }}
             disabled={streaming}
             className="rounded-md bg-amber px-5 py-2.5 font-semibold text-ink hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
@@ -106,8 +113,9 @@ export function App() {
               <label className="grid gap-1">
                 Ollama address
                 <input
-                  value={config.host}
-                  onChange={(e) => updateConfig({ host: e.target.value })}
+                  value={draft.host}
+                  onChange={(e) => setDraft({ ...draft, host: e.target.value })}
+                  onBlur={commitDraft}
                   spellCheck={false}
                   className="rounded border border-edge bg-ink px-2 py-1.5 font-mono text-text"
                 />
@@ -115,8 +123,9 @@ export function App() {
               <label className="grid gap-1">
                 Model
                 <input
-                  value={config.model}
-                  onChange={(e) => updateConfig({ model: e.target.value })}
+                  value={draft.model}
+                  onChange={(e) => setDraft({ ...draft, model: e.target.value })}
+                  onBlur={commitDraft}
                   spellCheck={false}
                   className="rounded border border-edge bg-ink px-2 py-1.5 font-mono text-text"
                 />
@@ -126,7 +135,9 @@ export function App() {
               type="button"
               onClick={() => {
                 saveConfig(null);
-                setConfig(defaultConfig());
+                const defaults = defaultConfig();
+                setConfig(defaults);
+                setDraft({ host: defaults.host, model: defaults.model });
               }}
               className="mt-3 underline underline-offset-2 hover:text-text"
             >
