@@ -4,7 +4,7 @@ A night of smart home sensor events goes in. A short ghost story comes out, writ
 
 Built for the Hacktoberfest Open-Source AI Challenge, Week 4: Ghost in the Machine.
 
-The page puts the story next to the real, boring sensor timeline behind it. You watch the model describe the spare room light that came on at 01:58, then look right and see the log line it came from.
+The page is a surveyor's plan of the house. The story streams in beside a floor plan and a chart of the whole night, and every time the story names a moment ("01:58") the plan and chart move to it, showing the lamps, doors, movement and temperatures as they were. The unexplained events are numbered and joined by a red route through the house, and the raw sensor record sits underneath.
 
 ## The principle
 
@@ -146,7 +146,7 @@ src/data/ha-client.ts    stub for the Home Assistant history API (untested)
 src/core/timeline.ts     filter, dedupe, score, pick, describe
 src/core/prompt.ts       system prompt and timeline formatting
 src/core/ollama.ts       streaming Ollama client with typed errors
-src/web/                 React page (editorial layout, ledger-style timeline)
+src/web/                 React page: house plan, night chart, story, raw record
 src/web/fonts/           bundled fonts and their licences
 fixtures/night-01.json   committed fixture, so the demo is reproducible
 ```
@@ -160,7 +160,7 @@ The planted anomalies, all at night while both phones are home:
 
 ## Fonts
 
-The page is set in Playfair Display, Source Serif 4 and UnifrakturCook, bundled as WOFF2 files in `src/web/fonts/`. They are SIL Open Font License 1.1 fonts, with their licence texts alongside, and were copied from the `@fontsource` packages rather than added as dependencies. Nothing is loaded from a font CDN, so the page makes no third-party requests and the service worker caches the fonts for offline use.
+The page is set in IM Fell English and IM Fell Double Pica (the narrator and the title) and Martian Mono (the machine's voice), bundled as WOFF2 files in `src/web/fonts/`. They are SIL Open Font License 1.1 fonts, with their licence texts alongside, and were copied from the `@fontsource` packages rather than added as dependencies. Nothing is loaded from a font CDN, so the page makes no third-party requests and the service worker caches the fonts for offline use.
 
 ## Licence
 
