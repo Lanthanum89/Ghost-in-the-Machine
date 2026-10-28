@@ -4,6 +4,8 @@ import { NOTABLE_SCORE, POINTS, RULE_TEXT, type Reason, type ScoredEvent } from 
 
 interface Props {
   events: ScoredEvent[];
+  /** Readings in the history before filtering. */
+  total: number;
   selected: Set<ScoredEvent>;
   time: number;
   onlySelected: boolean;
@@ -15,7 +17,7 @@ const sign = (n: number) => (n > 0 ? '+' : '−');
 const RULES = Object.keys(RULE_TEXT) as Array<Reason['rule']>;
 
 /** The raw record: every change that survived filtering, with the picked ones annotated. */
-export function Log({ events, selected, time, onlySelected, onToggleOnlySelected, onTime }: Props) {
+export function Log({ events, total, selected, time, onlySelected, onToggleOnlySelected, onTime }: Props) {
   const shown = onlySelected ? events.filter((e) => selected.has(e)) : events;
   const region = useRef<HTMLDivElement>(null);
   const nowRow = [...shown].reverse().find((e) => e.time <= time);
@@ -36,8 +38,9 @@ export function Log({ events, selected, time, onlySelected, onToggleOnlySelected
         <span className="tag">recorded</span>
       </div>
       <p className="mt-2 text-[1.05rem] leading-normal text-line">
-        {events.length} sensor changes were recorded and survived filtering. Six rules picked {selected.size} of them to show
-        the model. It never saw the rest, and which {selected.size} were chosen already shapes the story it tells.
+        The sensors logged {total} readings. Filtering drops repeats, motion clearing and doors closing, which leaves{' '}
+        {events.length} changes. Six rules picked {selected.size} of those to show the model. It never saw the rest, and
+        which {selected.size} were chosen already shapes the story it tells.
       </p>
 
       <details className="mt-3 border-y border-line/25 py-2 text-[1.02rem]">

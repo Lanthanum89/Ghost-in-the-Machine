@@ -31,6 +31,8 @@ const OPENING = Date.parse(stamp('22:50'));
 // The selection never changes for the bundled night, so work it out once.
 const PICKED = pickTimeline(history);
 const SCORED = scoreEvents(history);
+/** Every reading in the history, before filtering drops repeats, motion clearing and doors closing. */
+const READINGS = history.length;
 const PICKED_KEYS = new Set(PICKED.map((p) => `${p.event.entity_id}@${p.event.last_changed}`));
 // Same scored objects as in SCORED, so reference equality identifies the selected rows.
 const SELECTED = new Set(SCORED.filter((s) => PICKED_KEYS.has(`${s.event.entity_id}@${s.event.last_changed}`)));
@@ -103,6 +105,9 @@ export function App() {
   };
 
   const tell = () => {
+    // The story drives the plan and chart now, so a selected event would no longer match them.
+    setGuided(false);
+    setSelected(null);
     if (mode === 'recorded') {
       const instant = prefersReducedMotion();
       setTime(timeAtStart({ instant, text: RECORDED.text, start: START, end: END, resolve: atMinute }));
@@ -113,13 +118,17 @@ export function App() {
     }
   };
 
+  // Choosing an event or exploring the night takes over from a story that is still being told. Otherwise its next
+  // time would move the plan and chart away from the event the explanation and walkthrough are about.
   const selectMark = (n: number) => {
     const target = MARKS[n - 1];
     if (!target) return;
+    story.stop();
     setSelected(n);
     setTime(target.time);
   };
   const exploreNight = () => {
+    story.stop();
     setGuided(false);
     setSelected(null);
     setTime(START);
@@ -132,7 +141,7 @@ export function App() {
   const titleBlock: Array<[string, string]> = [
     ['subject', 'a fictional night'],
     ['story', mode === 'live' ? `live, from ${config.model}` : describeStory(RECORDED).replace(/\.$/, '')],
-    ['events', `${SCORED.length} recorded, ${PICKED.length} shown to the model, ${MARKS.length} marked`],
+    ['events', `${READINGS} readings, ${SCORED.length} after filtering, ${PICKED.length} shown to the model, ${MARKS.length} marked`],
     ['at', `${formatClock(time)}, ${house.phonesHome} of ${house.phonesTotal} tracked phones home`],
   ];
   const probeNote = mode === 'live' ? liveNote(probe, config.host, config.model) : null;
@@ -156,8 +165,9 @@ export function App() {
               A quiet house. Four events nothing explains. A language model asked to explain them.
             </p>
             <p className="mt-2 max-w-2xl text-[1.0625rem] leading-normal text-line">
-              Of <strong className="font-medium text-headline">{SCORED.length}</strong> sensor changes recorded, six rules picked{' '}
-              <strong className="font-medium text-headline">{PICKED.length}</strong> to show the model. Four of those {PICKED.length} are marked
+              The sensors logged <strong className="font-medium text-headline">{READINGS}</strong> readings.{' '}
+              <strong className="font-medium text-headline">{SCORED.length}</strong> changes survive filtering, six rules picked{' '}
+              <strong className="font-medium text-headline">{PICKED.length}</strong> to show the model, and {MARKS.length} of those are marked
               in red as unexplained.
             </p>
           </div>
@@ -463,6 +473,7 @@ export function App() {
           <div className="area-log">
             <Log
               events={SCORED}
+              total={READINGS}
               selected={SELECTED}
               time={time}
               onlySelected={onlySelected}
