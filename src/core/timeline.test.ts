@@ -98,13 +98,13 @@ describe('scoring rules', () => {
     expect(rules(all, daytime)).not.toContain('unexplained');
   });
 
-  it('adds asleep points only when every phone is home at night', () => {
+  it('adds phones-at-home points only when every phone is home at night', () => {
     const hallway = ev('binary_sensor.hallway_motion', 'on', '02:47');
-    expect(rules([...phonesHome, hallway], hallway)).toContain('asleep');
+    expect(rules([...phonesHome, hallway], hallway)).toContain('phones');
 
     const away = [...phonesHome, ev('device_tracker.sam_phone', 'not_home', '22:00')];
-    expect(rules([...away, hallway], hallway)).not.toContain('asleep');
-    expect(rules([hallway], hallway)).not.toContain('asleep');
+    expect(rules([...away, hallway], hallway)).not.toContain('phones');
+    expect(rules([hallway], hallway)).not.toContain('phones');
   });
 
   it('marks rarely changing entities as rare and chatty ones as routine', () => {

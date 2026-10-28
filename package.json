@@ -12,7 +12,8 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "test": "vitest run",
-    "fixture": "tsx src/data/write-fixture.ts"
+    "fixture": "tsx src/data/write-fixture.ts",
+    "record-story": "tsx src/data/record-story.ts"
   },
   "dependencies": {
     "react": "^19.3.1",

@@ -8,7 +8,7 @@ import type { HaEvent } from '../data/types';
 export type Kind = 'motion' | 'door' | 'light' | 'temperature' | 'climate' | 'appliance' | 'presence' | 'other';
 
 export interface Reason {
-  rule: 'night' | 'unexplained' | 'asleep' | 'rare' | 'delta' | 'routine';
+  rule: 'night' | 'unexplained' | 'phones' | 'rare' | 'delta' | 'routine';
   points: number;
   text: string;
 }
@@ -61,7 +61,23 @@ export const DEFAULT_OPTIONS: ScoreOptions = {
 /** A score at or above this is shown as an unexplained event, not just a night-time one. */
 export const NOTABLE_SCORE = 5;
 
-export const POINTS = { night: 1, unexplained: 3, asleep: 2, rare: 2, delta: 5, routine: -1 } as const;
+export const POINTS = { night: 1, unexplained: 3, phones: 2, rare: 2, delta: 5, routine: -1 } as const;
+
+/** Plain-language statement of each rule, for showing how a score is made. Kept beside POINTS so they cannot drift apart. */
+export const RULE_TEXT: Record<Reason['rule'], { title: string; text: string }> = {
+  night: { title: 'At night', text: 'The change was recorded between 23:00 and 05:59.' },
+  unexplained: {
+    title: 'No motion recorded before it',
+    text: 'A door opened, a light came on, or (at night, outside the bedroom) movement was detected, and no motion was recorded in the 10 minutes before. Lights need motion in the same room. Not recording motion is not proof that nobody moved.',
+  },
+  phones: {
+    title: 'Phones at home',
+    text: 'The change happened at night while every tracked phone was at home. This is an assumption about who is in the house, not evidence of what they were doing.',
+  },
+  rare: { title: 'Rarely changes', text: 'The sensor changed twice or fewer all night.' },
+  delta: { title: 'Sudden change', text: 'A reading moved by 3 or more against its value 10 minutes earlier.' },
+  routine: { title: 'Changes constantly', text: 'The sensor changed eight or more times, like a fridge or thermostat, so each change says little.' },
+};
 
 export function kindOf(entityId: string): Kind {
   if (entityId.startsWith('device_tracker.')) return 'presence';
@@ -194,9 +210,15 @@ export function scoreEvents(history: HaEvent[], options: Partial<ScoreOptions> =
       // Daytime motion needs no cause, so only night-time motion can be unexplained.
       const exempt = kind === 'motion' && (!night || o.sleepingAreas.includes(area));
       if (!exempt && !hasPredecessor(index, kind, area)) {
-        add('unexplained', kind === 'light' ? `no movement in the ${words(area)} beforehand` : 'no movement anywhere in the house beforehand');
+        const mins = o.causalWindowMs / 60_000;
+        add(
+          'unexplained',
+          kind === 'light'
+            ? `no motion recorded in the ${words(area)} in the ${mins} minutes before`
+            : `no motion recorded anywhere in the ${mins} minutes before`,
+        );
       }
-      if (night && allHomeAt(index)) add('asleep', 'every phone was home and the house was asleep');
+      if (night && allHomeAt(index)) add('phones', 'every tracked phone was at home');
     }
 
     const count = counts.get(ev.entity_id) ?? 0;

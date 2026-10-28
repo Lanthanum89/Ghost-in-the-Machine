@@ -48,7 +48,7 @@
   --color-ground: #061a29;
   --color-line: #cfe3ea;
   --color-headline: #eef6f8;
-  --color-muted: #8fb2c2;
+  --color-muted: #a9c6d3;
   --color-red: #ff5a3c;
   --color-lamp: #f2dc8f;
   --color-slip: #ece4cf;
@@ -103,13 +103,14 @@ body {
     inset 0 0 0 6px rgb(207 227 234 / 0.28);
 }
 
-/* A misregistered second pass of ink behind the title: the print term is "ghosting". */
+/* A misregistered second pass of ink behind the title: the print term is "ghosting". It is a separate element
+   marked aria-hidden, so assistive technology reads the title once. */
 .ghosted {
   position: relative;
   z-index: 0;
+  display: inline-block;
 }
-.ghosted::after {
-  content: attr(data-text);
+.ghost-layer {
   position: absolute;
   left: 0.04em;
   top: 0.025em;
@@ -118,6 +119,17 @@ body {
   opacity: 0.14;
   animation: drift 9s ease-in-out infinite alternate;
   pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+/* Says which kind of claim a panel makes: recorded, rule-based or model. */
+.tag {
+  display: inline-block;
+  font: 500 0.74rem / 1 var(--font-mono);
+  color: var(--color-line);
+  border: 1px solid rgb(207 227 234 / 0.5);
+  padding: 0.3rem 0.45rem 0.25rem;
 }
 
 .layout {
@@ -163,7 +175,6 @@ body {
 .story p {
   margin: 0 0 1em;
   text-wrap: pretty;
-  hyphens: auto;
 }
 
 /* A time in the story. Pressing it moves the chart to that moment. */
@@ -264,7 +275,7 @@ body {
   html {
     scroll-behavior: auto;
   }
-  .ghosted::after,
+  .ghost-layer,
   .caret,
   .ring,
   .leg {

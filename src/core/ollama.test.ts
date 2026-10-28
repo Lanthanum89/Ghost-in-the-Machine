@@ -5,6 +5,7 @@ import {
   OllamaError,
   OllamaModelMissingError,
   OllamaUnreachableError,
+  probeOllama,
   resolveConfig,
   streamChat,
 } from './ollama';
@@ -117,11 +118,37 @@ describe('prompt', () => {
   it('never leaks scores or rule names to the model', () => {
     const [system, user] = buildMessages(events);
     expect(system?.role).toBe('system');
-    expect(user?.content).not.toMatch(/score|unexplained|asleep|rare|routine|delta|points/i);
+    expect(user?.content).not.toMatch(/score|unexplained|phones at home|rare|routine|delta|points/i);
   });
 
   it('fixes the voice and the length cap', () => {
     expect(SYSTEM_PROMPT).toMatch(/British/);
     expect(SYSTEM_PROMPT).toMatch(/under 300 words/);
+  });
+});
+
+describe('probeOllama', () => {
+  const tags = (names: string[]): typeof fetch =>
+    (async () => new Response(JSON.stringify({ models: names.map((name) => ({ name })) }))) as unknown as typeof fetch;
+
+  it('is ready when the model is installed', async () => {
+    expect(await probeOllama(config, tags(['tiny:1b', 'other:7b']))).toEqual({ status: 'ready', models: ['tiny:1b', 'other:7b'] });
+  });
+
+  it('treats a bare model name as its :latest tag', async () => {
+    expect(await probeOllama({ ...config, model: 'tiny' }, tags(['tiny:latest']))).toMatchObject({ status: 'ready' });
+  });
+
+  it('reports a missing model, listing what is installed', async () => {
+    expect(await probeOllama(config, tags(['other:7b']))).toEqual({ status: 'missing-model', models: ['other:7b'] });
+  });
+
+  it('reports down when nothing answers or the answer is not ok', async () => {
+    const refused = (async () => {
+      throw new TypeError('Failed to fetch');
+    }) as unknown as typeof fetch;
+    expect(await probeOllama(config, refused)).toEqual({ status: 'down' });
+    const broken = (async () => new Response('', { status: 500 })) as unknown as typeof fetch;
+    expect(await probeOllama(config, broken)).toEqual({ status: 'down' });
   });
 });
