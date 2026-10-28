@@ -2,14 +2,13 @@ import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { pickTimeline } from '../core/timeline';
 import type { HaEvent } from '../data/types';
-import { ANCHORS, DOORWAYS, ROOMS, buildLegs, buildMarks, route } from './plan';
+import { ANCHORS, ROOMS, buildLegs, buildMarks } from './plan';
 
 const history: HaEvent[] = JSON.parse(readFileSync('fixtures/night-01.json', 'utf8'));
 
 describe('plan geometry', () => {
-  it('has an anchor and a doorway for every room that opens onto the hallway', () => {
-    for (const id of Object.keys(ROOMS)) expect(ANCHORS[id]).toBeDefined();
-    for (const id of ['living_room', 'kitchen', 'bedroom', 'bathroom', 'spare_room']) expect(DOORWAYS[id]).toBeDefined();
+  it('has an anchor for every room and for the two exterior doors', () => {
+    for (const id of [...Object.keys(ROOMS), 'back_door', 'front_door']) expect(ANCHORS[id]).toBeDefined();
   });
 
   it('keeps every anchor inside its room', () => {
@@ -20,13 +19,6 @@ describe('plan geometry', () => {
       expect(y).toBeGreaterThan(room.y);
       expect(y).toBeLessThan(room.y + room.h);
     }
-  });
-
-  it('routes between rooms through the hallway', () => {
-    const r = route('spare_room', 'hallway');
-    expect(r[0]).toEqual(ANCHORS.spare_room);
-    expect(r).toContainEqual(DOORWAYS.spare_room);
-    expect(route('spare_room', 'back_door')).toContainEqual(DOORWAYS.kitchen);
   });
 });
 
@@ -47,9 +39,16 @@ describe('marks and legs on the fixture night', () => {
     expect(marks[0]!.at).not.toEqual(marks[2]!.at);
   });
 
-  it('draws a leg whenever the haunting changes room', () => {
+  it('links each mark to the next in time order, as a straight line between two points', () => {
     const legs = buildLegs(marks);
     expect(legs).toHaveLength(3);
     expect(legs.map((l) => l.time)).toEqual([marks[1]!.time, marks[2]!.time, marks[3]!.time]);
+    for (const [i, leg] of legs.entries()) expect(leg.points).toEqual([marks[i]!.at, marks[i + 1]!.at]);
+  });
+
+  it('describes missing motion as not recorded rather than as absence', () => {
+    const text = marks.map((m) => m.why).join(' ');
+    expect(text).toMatch(/no motion recorded/);
+    expect(text).not.toMatch(/nobody|no one|asleep/i);
   });
 });

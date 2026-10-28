@@ -21,7 +21,7 @@ const DOORWAY_GAPS: Array<[x: number, y: number, w: number, h: number]> = [
   [405, 257.5, 30, 5],
 ];
 
-function summarise(state: HouseState, time: number): string {
+function summarise(state: HouseState, time: number, marks: Mark[]): string {
   const bits: string[] = [`Plan of the house at ${formatClock(time)}.`];
   const lit = Object.entries(state.lights).filter(([, on]) => on).map(([a]) => a.replace('_', ' '));
   bits.push(lit.length ? `Lights on: ${lit.join(', ')}.` : 'No lights on.');
@@ -34,6 +34,10 @@ function summarise(state: HouseState, time: number): string {
   if (moving.length) bits.push(`Recent movement: ${moving.join(', ')}.`);
   const spare = state.temperatures.spare_room;
   if (spare !== undefined) bits.push(`Spare room ${spare.toFixed(1)} degrees.`);
+  const marked = marks.filter((m) => m.time <= time);
+  if (marked.length) {
+    bits.push(`Marked events so far, in time order: ${marked.map((m) => `${m.n} at ${formatClock(m.time)}, ${m.text.toLowerCase()}`).join('; ')}.`);
+  }
   return bits.join(' ');
 }
 
@@ -47,7 +51,7 @@ export function Plan({ state, time, marks, legs }: Props) {
   const frontDoorOpen = state.doors.front_door === true;
 
   return (
-    <svg viewBox={`0 0 ${VIEW.w} ${VIEW.h}`} role="img" aria-label={summarise(state, time)} className="block h-auto w-full">
+    <svg viewBox={`0 0 ${VIEW.w} ${VIEW.h}`} role="img" aria-label={summarise(state, time, marks)} className="block h-auto w-full">
       <defs>
         <radialGradient id="lamp">
           <stop offset="0" stopColor="var(--color-lamp)" stopOpacity="0.55" />
@@ -178,7 +182,7 @@ export function Plan({ state, time, marks, legs }: Props) {
         {legs
           .filter((l) => l.time <= time)
           .map((l) => (
-            <path key={l.time} d={toPath(l.points)} strokeDasharray="7 6" className="leg" markerEnd="url(#arrow)" />
+            <path key={l.time} d={toPath(l.points)} strokeDasharray="3 6" strokeWidth="1.5" strokeOpacity="0.75" className="leg" markerEnd="url(#arrow)" />
           ))}
       </g>
       {shownMarks.map((m) => (

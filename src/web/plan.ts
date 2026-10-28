@@ -1,6 +1,6 @@
 import { NOTABLE_SCORE, type ScoredEvent } from '../core/timeline';
 
-/** Geometry of the house plan, in SVG units (viewBox 0 0 730 440), and the route a haunting takes through it. */
+/** Geometry of the house plan, in SVG units (viewBox 0 0 730 440), and where the marked events sit on it. */
 
 export type Point = [number, number];
 
@@ -39,36 +39,6 @@ export const ANCHORS: Record<string, Point> = {
   front_door: [20, 235],
 };
 
-/** Doorways: the point on the wall of each room (or exterior door) where people pass through. */
-export const DOORWAYS: Record<string, Point> = {
-  living_room: [135, 210],
-  kitchen: [415, 210],
-  bedroom: [115, 260],
-  bathroom: [265, 260],
-  spare_room: [420, 260],
-  front_door: [20, 235],
-  back_door: [580, 110],
-};
-
-const hallPoint = (x: number): Point => [x, 235];
-
-/** The way from the middle of a room out to the hallway's centre line. */
-function routeToHall(area: string): Point[] {
-  if (area === 'hallway') return [ANCHORS.hallway!];
-  if (area === 'back_door') return [DOORWAYS.back_door!, ANCHORS.kitchen!, DOORWAYS.kitchen!, hallPoint(DOORWAYS.kitchen![0])];
-  if (area === 'front_door') return [DOORWAYS.front_door!, hallPoint(60)];
-  const door = DOORWAYS[area];
-  const anchor = ANCHORS[area];
-  if (!door || !anchor) return [];
-  return [anchor, door, hallPoint(door[0])];
-}
-
-/** A plausible walking route between two areas, always via the hallway. */
-export function route(from: string, to: string): Point[] {
-  const out = [...routeToHall(from), ...routeToHall(to).reverse()];
-  return out.filter((p, i) => i === 0 || p[0] !== out[i - 1]![0] || p[1] !== out[i - 1]![1]);
-}
-
 export interface Mark {
   n: number;
   time: number;
@@ -106,16 +76,12 @@ export interface Leg {
   points: Point[];
 }
 
-/** One leg of the route between each pair of consecutive marks in different rooms. */
+/**
+ * A link between each pair of consecutive marks, in time order. It shows sequence only: nothing here
+ * tracks anyone through the house, so it is drawn as a straight line and not as a walking route.
+ */
 export function buildLegs(marks: Mark[]): Leg[] {
-  const legs: Leg[] = [];
-  for (let i = 1; i < marks.length; i++) {
-    const a = marks[i - 1]!;
-    const b = marks[i]!;
-    if (a.area === b.area) continue;
-    legs.push({ time: b.time, points: [a.at, ...route(a.area, b.area), b.at] });
-  }
-  return legs;
+  return marks.slice(1).map((b, i) => ({ time: b.time, points: [marks[i]!.at, b.at] }));
 }
 
 export const toPath = (points: Point[]): string => points.map(([x, y], i) => `${i ? 'L' : 'M'}${x} ${y}`).join(' ');

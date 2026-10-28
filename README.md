@@ -4,7 +4,9 @@ A night of smart home sensor events goes in. A short ghost story comes out, writ
 
 Built for the Hacktoberfest Open-Source AI Challenge, Week 4: Ghost in the Machine.
 
-The page is a surveyor's plan of the house. The story streams in beside a floor plan and a chart of the whole night, and every time the story names a moment ("01:58") the plan and chart move to it, showing the lamps, doors, movement and temperatures as they were. The unexplained events are numbered and joined by a red route through the house, and the raw sensor record sits underneath.
+The page is a surveyor's plan of the house. The story streams in beside a floor plan and a chart of the whole night, and every time the story names a moment ("01:58") the plan and chart move to it, showing the lamps, doors, movement and temperatures as they were. The four marked events are numbered and linked in time order (the link shows sequence, not a tracked route), and the raw sensor record sits underneath.
+
+The page opens with a **recorded story** that plays straight away, so nothing needs installing to see what the project does. A **live** mode asks your own Ollama model to write a fresh one, and checks that Ollama is there before you press anything. The page keeps three kinds of claim apart and labels them: what the sensors *recorded*, what this project's rules *assume*, and what the *model* interpreted.
 
 ## The principle
 
@@ -37,13 +39,13 @@ All rules are in `src/core/timeline.ts`, with their weights in `POINTS`. They ar
 | Rule | Points | Fires when |
 | --- | --- | --- |
 | Night | +1 | The event happened between 23:00 and 05:59 |
-| Unexplained | +3 | A door opens, a light comes on, or (at night) movement is detected, with no movement or arrival in the previous 10 minutes. Lights need movement in the same room. Bedroom movement is expected at night |
-| Asleep | +2 | The event is an activation at night while every phone is home |
+| No motion recorded before it | +3 | A door opens, a light comes on, or (at night) movement is detected, with no motion recorded or arrival in the previous 10 minutes. Lights need motion in the same room. Bedroom movement is expected at night. A sensor recording nothing is not proof that nobody moved |
+| Phones at home | +2 | The event is an activation at night while every tracked phone is at home. This is an assumption about who is in the house, not evidence of what they were doing |
 | Rare | +2 | The entity changed twice or fewer all night |
 | Sudden change | +5 | A number moved by 3 or more against its value 10 minutes earlier |
 | Routine | -1 | The entity changed eight or more times, like a fridge or thermostat |
 
-Events that score nothing are dropped. The rest are ranked, the top 20 are kept, and they go back into time order. On the bundled night that selects 15 events: the four planted anomalies score 8, 8, 5 and 5, and an ordinary bathroom trip at 01:13 scores 3 or less.
+These rules are the project's own assumptions about what looks unusual, not measurements, and the page shows them under the raw record. Which events they pick already shapes the story a model tells. Events that score nothing are dropped. The rest are ranked, the top 20 are kept, and they go back into time order. On the bundled night that selects 15 events: the four planted anomalies score 8, 8, 5 and 5, and an ordinary bathroom trip at 01:13 scores 3 or less.
 
 ## Run it
 
@@ -100,6 +102,7 @@ pnpm lint        # ESLint
 pnpm build       # typecheck, then production build into dist/
 pnpm preview     # serve the build
 pnpm fixture     # regenerate fixtures/night-01.json from the seeded generator
+pnpm record-story  # have your local model write fixtures/story-01.json
 ```
 
 ## Installable, and the GitHub Pages copy
@@ -128,13 +131,21 @@ A phone cannot reach an Ollama running on another machine over plain HTTP from a
 
 ## Does it run fully offline?
 
-Yes for the bundled demo, once set up. After you have installed Ollama and pulled a model, the fake night, the scoring, the model and the UI all run on your machine with no internet. There are no cloud AI calls anywhere in the code.
+Yes for the bundled demo. The recorded story needs nothing but the page, which the service worker caches for offline use. For live stories, once you have installed Ollama and pulled a model, the fake night, the scoring, the model and the UI all run on your machine with no internet. There are no cloud AI calls anywhere in the code.
+
+The bundled story is labelled on the page for what it is. Until a model has recorded one it is a hand-written example. To replace it with a real one, with Ollama running and the model pulled:
+
+```bash
+pnpm record-story
+```
+
+That asks your model to narrate the fixture night, checks the story names times the plan can follow, and saves `fixtures/story-01.json` with the model's name and the date. Read it, run it again if you do not like it, then commit it.
 
 What is **not** tested: the live Home Assistant adapter. `src/data/ha-client.ts` is a stub shaped from the Home Assistant REST API documentation. It has never been run against a real Home Assistant instance, and it is clearly marked untested in the code. Until someone tries it on a real house, treat the sensor data as fictional.
 
 ## Why open-weight and local matters here
 
-Smart home sensor data is unusually revealing. A log of door and motion events shows when the house is empty, when everyone is asleep, which room someone goes to at 03:00, and when they usually come home. That is exactly what a burglar or a data broker wants.
+Smart home sensor data is unusually revealing. A log of door and motion events shows when the house is empty, when people are likely to be asleep, which room someone goes to at 03:00, and when they usually come home. That is exactly what a burglar or a data broker wants.
 
 Sending that to a hosted model means trusting a third party with it, forever, under terms that can change. Running an open-weight model on your own network means:
 

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { formatClock } from '../core/clock';
-import { NOTABLE_SCORE, type ScoredEvent } from '../core/timeline';
+import { NOTABLE_SCORE, POINTS, RULE_TEXT, type Reason, type ScoredEvent } from '../core/timeline';
 
 interface Props {
   events: ScoredEvent[];
@@ -10,6 +10,9 @@ interface Props {
   onToggleOnlySelected: (value: boolean) => void;
   onTime: (ms: number) => void;
 }
+
+const sign = (n: number) => (n > 0 ? '+' : '−');
+const RULES = Object.keys(RULE_TEXT) as Array<Reason['rule']>;
 
 /** The raw record: every change that survived filtering, with the picked ones annotated. */
 export function Log({ events, selected, time, onlySelected, onToggleOnlySelected, onTime }: Props) {
@@ -26,23 +29,48 @@ export function Log({ events, selected, time, onlySelected, onToggleOnlySelected
 
   return (
     <section aria-labelledby="record-heading" className="min-w-0">
-      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-        <h2 id="record-heading" className="font-pica text-2xl italic text-headline">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+        <h2 id="record-heading" className="font-pica text-[2rem] italic leading-none text-headline">
           The raw record
         </h2>
-        <label className="inline-flex cursor-pointer items-center gap-2 font-mono text-[0.72rem] text-muted">
-          <input
-            type="checkbox"
-            checked={onlySelected}
-            onChange={(e) => onToggleOnlySelected(e.target.checked)}
-            className="h-3.5 w-3.5 accent-red"
-          />
-          only the {selected.size} shown to the model
-        </label>
+        <span className="tag">recorded</span>
       </div>
-      <p className="mt-1 text-[0.95rem] italic text-muted">
-        {events.length} changes survived filtering. Plain rules marked {selected.size}; the model saw only those.
+      <p className="mt-2 text-[1.05rem] leading-snug text-line">
+        {events.length} sensor changes survived filtering. Six rules picked {selected.size} of them to show the model. It never
+        saw the rest, and which {selected.size} were chosen already shapes the story it tells.
       </p>
+
+      <details className="mt-3 border-y border-line/25 py-2 text-[1.02rem]">
+        <summary className="cursor-pointer font-mono text-[0.8rem] text-headline">how the {selected.size} were chosen</summary>
+        <ul className="mt-3 space-y-2.5">
+          {RULES.map((rule) => (
+            <li key={rule} className="grid grid-cols-[2.4rem_minmax(0,1fr)] gap-x-2">
+              <span className="font-mono text-[0.85rem] tabular-nums text-red">
+                {sign(POINTS[rule])}
+                {Math.abs(POINTS[rule])}
+              </span>
+              <span>
+                <strong className="font-normal text-headline">{RULE_TEXT[rule].title}.</strong>{' '}
+                <span className="text-line/90">{RULE_TEXT[rule].text}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-3 text-line/90">
+          Events that score above zero are ranked and the top 20 are kept. These are the project&rsquo;s own assumptions about
+          what looks unusual, not measurements.
+        </p>
+      </details>
+
+      <label className="mt-3 inline-flex cursor-pointer items-center gap-2 font-mono text-[0.8rem] text-line">
+        <input
+          type="checkbox"
+          checked={onlySelected}
+          onChange={(e) => onToggleOnlySelected(e.target.checked)}
+          className="h-4 w-4 accent-red"
+        />
+        show only the {selected.size} the model saw
+      </label>
 
       <div
         ref={region}
@@ -51,11 +79,12 @@ export function Log({ events, selected, time, onlySelected, onToggleOnlySelected
         aria-label="Sensor record, scrollable"
         className="relative mt-3 max-h-[26rem] overflow-y-auto border-y border-line/40"
       >
-        <ol className="font-mono text-[0.78rem] leading-snug">
+        <ol className="font-mono text-[0.84rem] leading-snug">
           {shown.map((s) => {
             const picked = selected.has(s);
             const notable = s.score >= NOTABLE_SCORE;
             const isNow = s === nowRow;
+            const top = [...s.reasons].sort((a, b) => b.points - a.points)[0];
             return (
               <li
                 key={`${s.event.entity_id}-${s.event.last_changed}`}
@@ -65,13 +94,13 @@ export function Log({ events, selected, time, onlySelected, onToggleOnlySelected
                 <button
                   type="button"
                   onClick={() => onTime(s.time)}
-                  className="grid w-full grid-cols-[3.2rem_minmax(0,1fr)_2rem] items-baseline gap-x-3 px-2 py-1.5 text-left"
+                  className="grid w-full grid-cols-[3.4rem_minmax(0,1fr)_2rem] items-baseline gap-x-3 px-2 py-2 text-left"
                 >
-                  <time dateTime={s.event.last_changed} className={isNow ? 'text-red' : 'text-muted'}>
+                  <time dateTime={s.event.last_changed} className={isNow ? 'text-red' : 'text-line/80'}>
                     {formatClock(s.time)}
                   </time>
-                  <span className={notable ? 'text-red' : picked ? 'text-headline' : 'text-muted'}>{s.text}</span>
-                  <span className={`text-right tabular-nums ${notable ? 'text-red' : 'text-line/70'}`}>
+                  <span className={notable ? 'text-red' : picked ? 'text-headline' : 'text-line/80'}>{s.text}</span>
+                  <span className={`text-right tabular-nums ${notable ? 'text-red' : 'text-line'}`}>
                     {picked && (
                       <>
                         <span className="sr-only">score </span>
@@ -80,18 +109,24 @@ export function Log({ events, selected, time, onlySelected, onToggleOnlySelected
                     )}
                   </span>
                 </button>
-                {picked && (
-                  <ul className="mb-2 ml-[4.45rem] mr-2 space-y-0.5 font-fell text-[0.95rem] italic leading-snug text-line/80">
-                    {s.reasons.map((r) => (
-                      <li key={r.rule}>
-                        <span className="font-mono text-[0.72rem] not-italic tabular-nums text-muted">
-                          {r.points > 0 ? '+' : '−'}
-                          {Math.abs(r.points)}
-                        </span>{' '}
-                        {r.text}
-                      </li>
-                    ))}
-                  </ul>
+                {picked && top && (
+                  <details key={isNow ? 'now' : 'rest'} open={isNow} className="mb-2 ml-[4.4rem] mr-2 font-fell text-[1.02rem] leading-snug text-line">
+                    <summary className="cursor-pointer">
+                      {top.text}
+                      <span className="text-line/70"> ({sign(top.points)}{Math.abs(top.points)}). All {s.reasons.length} reasons</span>
+                    </summary>
+                    <ul className="mt-1 space-y-0.5 pl-1">
+                      {s.reasons.map((r) => (
+                        <li key={r.rule}>
+                          <span className="font-mono text-[0.78rem] tabular-nums text-red">
+                            {sign(r.points)}
+                            {Math.abs(r.points)}
+                          </span>{' '}
+                          {r.text}
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
                 )}
               </li>
             );
