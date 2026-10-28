@@ -41,6 +41,8 @@ export const ANCHORS: Record<string, Point> = {
 
 export interface Mark {
   n: number;
+  /** The scored event this mark stands for. */
+  event: ScoredEvent;
   time: number;
   area: string;
   text: string;
@@ -61,6 +63,7 @@ export function buildMarks(picked: ScoredEvent[]): Mark[] {
       const best = [...s.reasons].sort((a, b) => b.points - a.points)[0];
       return {
         n: i + 1,
+        event: s,
         time: s.time,
         area: s.area,
         text: s.text,
